@@ -37,7 +37,7 @@
       <div class="ring" id="ring" aria-hidden="true"></div>
       <p class="hint">원이 주제를 포함할 때<br>도욱을 누르세요.</p>
       <ul class="orbit" id="orbit" aria-label="주제">
-        <li data-target="writing"><span>글</span><span>writing</span></li>
+        <li data-target="email"><span>전자우편</span><span>email</span></li>
         <li data-target="design"><span>디자인</span><span>design</span></li>
         <li data-target="education"><span>교육</span><span>education</span></li>
         <li data-target="singing"><span>노래</span><span>singing</span></li>
@@ -60,7 +60,7 @@
       <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
       <header class="page-head">
         <h1 class="page-title"><span>디자인</span><span>design</span></h1>
-        <p class="page-intro">하고 싶은 말을 꾸밈없이 하고 싶다.</p>
+        <p class="page-intro" data-edit="intro.design"></p>
       </header>
       <div class="page-body rows works" id="works"></div>
     </div>
@@ -72,7 +72,7 @@
       <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
       <header class="page-head">
         <h1 class="page-title"><span>교육</span><span>education</span></h1>
-        <p class="page-intro">말하기를 좋아하고 글쓰기도 좋아한다. 삼성서울병원 병원학교에서 아이들을 만나고 있다.</p>
+        <p class="page-intro" data-edit="intro.education"></p>
       </header>
       <div class="page-body lessons" id="classes"></div>
     </div>
@@ -92,29 +92,20 @@
       <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
       <header class="page-head">
         <h1 class="page-title"><span>노래</span><span>singing</span></h1>
-        <p class="page-intro">초등학생때부터 기타를 쳤다. <br>그러나 어디가서 언제부터 기타 쳤냐는 질문을 받으면 곤란해한다.</p>
+        <p class="page-intro" data-edit="intro.singing"></p>
       </header>
       <ul class="page-body rows songs" id="songs"></ul>
     </div>
   </section>
 
-  <!-- 글 목록 -->
-  <section class="view" data-view="writing" hidden>
+  <!-- 전자우편 -->
+  <section class="view" data-view="email" hidden>
     <div class="page">
       <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
       <header class="page-head">
-        <h1 class="page-title"><span>글</span><span>writing</span></h1>
-        <p class="page-intro">중학교 2학년때는 글을 쓰면서 이렇게 오글거리는 글을 나중에 읽으면 손발이 오그라들고 <br>닭살이 돋겠지? 라고 생각했으나 현재까지도 이렇게 오글거리는 글을 매일 쓰고 있다.</p>
+        <h1 class="page-title"><span>전자우편</span><span>email</span></h1>
       </header>
-      <div class="page-body rows topics" id="topics"></div>
-    </div>
-  </section>
-
-  <!-- 글 한 편 -->
-  <section class="view" data-view="post" hidden>
-    <div class="page">
-      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
-      <article class="post" id="post"></article>
+      <p class="page-body mail"><a class="big u-line" id="mail-link" href="#email">메일 주소</a></p>
     </div>
   </section>
 
@@ -124,10 +115,9 @@
       <div class="anxiety">
         <h1 class="page-title"><span>불안</span><span>anxiety</span></h1>
         <a class="logo-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg></a>
-        <p>편도체가 만들어내는 제 1의 감정이 불안이라고 한다.<br>모든 감정의 생물학적 원형이 불안이라고 생각하니까<br>불안한 마음이 조금 괜찮아졌다.</p>
+        <p data-edit="intro.anxiety"></p>
       </div>
     </div>
-    <section class="anxiety-more" id="anxiety-more" aria-label="불안에 관한 글"></section>
   </section>
 </main>
 

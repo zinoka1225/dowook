@@ -1,11 +1,103 @@
-/* 사이트에 들어가는 모든 글과 작업 목록.
-   새 글·작업을 넣을 때는 같은 모양의 항목을 하나 더 추가하면 된다. */
+/* 사이트에 들어가는 모든 글과 작업 목록. 이 파일이 원본이다.
+   웹의 편집 모드에서 저장하면 이 파일이 바뀐다. */
 window.SITE = {
  "updated": "2026-10-15",
- "closed": [
-  "writing"
+ "intro": {
+  "design": "하고 싶은 말을 꾸밈없이 하고 싶다.",
+  "education": "말하기를 좋아하고 글쓰기도 좋아한다. 삼성서울병원 병원학교에서 아이들을 만나고 있다.",
+  "singing": "초등학생때부터 기타를 쳤다.\n그러나 어디가서 언제부터 기타 쳤냐는 질문을 받으면 곤란해한다.",
+  "anxiety": "편도체가 만들어내는 제 1의 감정이 불안이라고 한다.\n모든 감정의 생물학적 원형이 불안이라고 생각하니까\n불안한 마음이 조금 괜찮아졌다."
+ },
+ "design": [
+  {
+   "title": "도욱",
+   "period": "2026.10",
+   "cover": "douk.jpg",
+   "links": [
+    {
+     "label": "",
+     "url": "https://www.instagram.com/p/DeR5O2imt_Y/"
+    }
+   ],
+   "desc": "인스타그램과 웹에 사용할 로고를 디자인했다. 하나의 조형적 기준으로 수렴하는 디자인들이 판치는 시대에 대한 거부의 의사 표현이다."
+  },
+  {
+   "title": "따로 또 같이",
+   "period": "2026.09",
+   "cover": "ttaro.jpg",
+   "links": [
+    {
+     "label": "",
+     "url": "https://www.instagram.com/p/DdTwOuNmuwB/"
+    }
+   ],
+   "desc": "원 두 개를 반원 호 하나와 1/4 호 둘로 잇는 배치 12개와, 그것을 떼어놓은 배치 12개를 만들었다. ‘따로’ 이루어지는 일과 ‘같이’ 이루어지는 일을 ‘또’ 반복하고 있는 작업이다."
+  },
+  {
+   "title": "유토프",
+   "period": "2026.06–07",
+   "cover": "utop.jpg",
+   "links": [
+    {
+     "label": "레터링",
+     "url": "https://www.instagram.com/p/DaKdjH2kTsN/"
+    },
+    {
+     "label": "영상",
+     "url": "https://www.instagram.com/reel/Daq4Xf4OD8J/"
+    }
+   ],
+   "desc": "식욕이 죄악인 디스토피아를 레터링과 짧은 영상으로 만들었다. 유토피아에서 단어를 완결시키는 어미 -⁠ia를 떼어내 인간의 기본 욕구가 잘려 나간 세계를 이름에 담았다."
+  },
+  {
+   "title": "몽유",
+   "period": "2026.05–06",
+   "cover": "mongyu.jpg",
+   "links": [
+    {
+     "label": "",
+     "url": "https://www.instagram.com/reel/DZm8jd1u-vS/"
+    }
+   ],
+   "desc": "노인과 비둘기의 하루를 겹쳐 보여주는 영상을 만들었다. 노인과 나 사이의 시간의 간극이 어떤 임계를 넘을 때 필요해지는 다른 셈법에 대한 이야기다."
+  },
+  {
+   "title": "책을 읽는 것보다 사는 걸 더 좋아하는 나를 위한",
+   "period": "2026.04–06",
+   "cover": "book.jpg",
+   "links": [
+    {
+     "label": "",
+     "url": "https://www.instagram.com/p/DZnMidZms11/"
+    }
+   ],
+   "desc": "고3 한 해 동안 쓴 소설과 토막글 28편을 B6, 약 120쪽의 책으로 엮었다. 흐릿하지만 그럼에도 주목했으면 하는 그 시기의 흔적을 남겨두는 작업이다."
+  },
+  {
+   "title": "내가 쏘아올린 작지 않은 공",
+   "period": "2026.03–06",
+   "cover": "mentor.jpg",
+   "links": [
+    {
+     "label": "",
+     "url": "https://www.instagram.com/p/DZxfZB-GpgF/"
+    }
+   ],
+   "desc": "초등학생 때의 일기와 지금의 내가 덧붙인 글을 짝지어 12장의 소책자로 만들었다. 어린 시절의 기록에서 현재 나의 원형을 탐색한 작업이었다."
+  },
+  {
+   "title": "바다가",
+   "period": "2026.04",
+   "cover": "bada.jpg",
+   "links": [
+    {
+     "label": "",
+     "url": "https://www.instagram.com/p/Dae-pb0kdBj/"
+    }
+   ],
+   "desc": "자리돔 한 마리가 수족관 앞 아이에게 자기가 살던 바다 마을 이야기를 들려주는 그림책을 만들었다."
+  }
  ],
- "writing": [],
  "education": [
   {
    "date": "2026.10.14",
@@ -377,96 +469,6 @@ window.SITE = {
    "artist": "Richard Sanderson",
    "recorded": "2024.11.13",
    "with": "검정팬티"
-  }
- ],
- "design": [
-  {
-   "title": "도욱",
-   "period": "2026.10",
-   "cover": "douk.jpg",
-   "links": [
-    {
-     "label": "",
-     "url": "https://www.instagram.com/p/DeR5O2imt_Y/"
-    }
-   ],
-   "desc": "인스타그램과 웹에 사용할 로고를 디자인했다. 하나의 조형적 기준으로 수렴하는 디자인들이 판치는 시대에 대한 거부의 의사 표현이다."
-  },
-  {
-   "title": "따로 또 같이",
-   "period": "2026.09",
-   "cover": "ttaro.jpg",
-   "links": [
-    {
-     "label": "",
-     "url": "https://www.instagram.com/p/DdTwOuNmuwB/"
-    }
-   ],
-   "desc": "원 두 개를 반원 호 하나와 1/4 호 둘로 잇는 배치 12개와, 그것을 떼어놓은 배치 12개를 만들었다. ‘따로’ 이루어지는 일과 ‘같이’ 이루어지는 일을 ‘또’ 반복하고 있는 작업이다."
-  },
-  {
-   "title": "유토프",
-   "period": "2026.06–07",
-   "cover": "utop.jpg",
-   "links": [
-    {
-     "label": "레터링",
-     "url": "https://www.instagram.com/p/DaKdjH2kTsN/"
-    },
-    {
-     "label": "영상",
-     "url": "https://www.instagram.com/reel/Daq4Xf4OD8J/"
-    }
-   ],
-   "desc": "식욕이 죄악인 디스토피아를 레터링과 짧은 영상으로 만들었다. 유토피아에서 단어를 완결시키는 어미 -⁠ia를 떼어내 인간의 기본 욕구가 잘려 나간 세계를 이름에 담았다."
-  },
-  {
-   "title": "몽유",
-   "period": "2026.05–06",
-   "cover": "mongyu.jpg",
-   "links": [
-    {
-     "label": "",
-     "url": "https://www.instagram.com/reel/DZm8jd1u-vS/"
-    }
-   ],
-   "desc": "노인과 비둘기의 하루를 겹쳐 보여주는 영상을 만들었다. 노인과 나 사이의 시간의 간극이 어떤 임계를 넘을 때 필요해지는 다른 셈법에 대한 이야기다."
-  },
-  {
-   "title": "책을 읽는 것보다 사는 걸 더 좋아하는 나를 위한",
-   "period": "2026.04–06",
-   "cover": "book.jpg",
-   "links": [
-    {
-     "label": "",
-     "url": "https://www.instagram.com/p/DZnMidZms11/"
-    }
-   ],
-   "desc": "고3 한 해 동안 쓴 소설과 토막글 28편을 B6, 약 120쪽의 책으로 엮었다. 흐릿하지만 그럼에도 주목했으면 하는 그 시기의 흔적을 남겨두는 작업이다."
-  },
-  {
-   "title": "내가 쏘아올린 작지 않은 공",
-   "period": "2026.03–06",
-   "cover": "mentor.jpg",
-   "links": [
-    {
-     "label": "",
-     "url": "https://www.instagram.com/p/DZxfZB-GpgF/"
-    }
-   ],
-   "desc": "초등학생 때의 일기와 지금의 내가 덧붙인 글을 짝지어 12장의 소책자로 만들었다. 어린 시절의 기록에서 현재 나의 원형을 탐색한 작업이었다."
-  },
-  {
-   "title": "바다가",
-   "period": "2026.04",
-   "cover": "bada.jpg",
-   "links": [
-    {
-     "label": "",
-     "url": "https://www.instagram.com/p/Dae-pb0kdBj/"
-    }
-   ],
-   "desc": "자리돔 한 마리가 수족관 앞 아이에게 자기가 살던 바다 마을 이야기를 들려주는 그림책을 만들었다."
   }
  ]
 };

@@ -212,6 +212,7 @@ p { text-wrap: pretty; }   /* 마지막 줄에 한 단어만 남는 것 방지 *
 }
 
 /* 노래 */
+.mail { text-align: center; }
 .songs { justify-items: center; text-align: center; gap: calc(260 * var(--t)); }
 .song-btn { display: grid; gap: .1em; justify-items: center; }
 .song-title { position: relative; }
@@ -332,3 +333,29 @@ p { text-wrap: pretty; }   /* 마지막 줄에 한 단어만 남는 것 방지 *
 @media (prefers-reduced-motion: reduce) {
   .core .logo.is-miss { animation: none; }
 }
+
+/* ===== 편집 모드 ===== */
+.core .logo { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: manipulation; }
+/* 꾹 누른 뒤 비밀번호를 받는 입력. 화면에는 보이지 않는다(글자 크기 16px: 휴대폰 확대 방지) */
+.secret-sink {
+  position: fixed; left: 0; top: 0; width: 1px; height: 1px;
+  opacity: 0; border: 0; padding: 0; margin: 0; font-size: 16px;
+  color: transparent; background: transparent; caret-color: transparent; pointer-events: none;
+}
+body.is-editing [data-edit] { outline: 1px dashed #9a9a9a; outline-offset: 3px; cursor: text; }
+body.is-editing [data-edit]:focus { outline: 1px solid var(--fg); }
+.edit-bar {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 50;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .4em 1.2em;
+  max-width: calc(100vw - 32px); padding: .6em 1.1em;
+  background: var(--bg); border: 1px solid var(--fg); font-size: 14px;
+}
+.edit-bar[hidden] { display: none; }
+.edit-bar button { text-decoration: underline; text-underline-offset: .2em; }
+.edit-msg { color: var(--muted); }
+/* 편집 설정 화면 (#editor-setup) */
+.setup { display: grid; gap: 1.1em; width: min(100%, 26em); margin: calc(1100 * var(--t)) auto 0; }
+.setup label { display: grid; gap: .3em; }
+.setup input { font: inherit; padding: .45em .6em; border: 1px solid var(--fg); background: transparent; color: inherit; }
+.setup-actions { display: flex; gap: 1.4em; }
+.setup-msg { color: var(--muted); min-height: 1.5em; }
