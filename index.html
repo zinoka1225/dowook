@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>도욱</title>
+<meta name="description" content="교육, 디자인, 글, 노래. 김도욱의 웹.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- 로고는 한 번만 정의하고 <use href="#logo">로 불러 쓴다 -->
+<svg class="sprite" aria-hidden="true">
+  <defs>
+    <clipPath id="logo-clip"><rect x="591" y="291" width="2319" height="1832"/></clipPath>
+  </defs>
+  <!-- 큰 로고: Noto Sans KR Light -->
+  <symbol id="logo" viewBox="0 0 3415 2519">
+    <rect width="3415" height="2519" fill="#000"/>
+    <rect x="591" y="291" width="2319" height="1832" fill="#fff"/>
+    <path clip-path="url(#logo-clip)" fill="#000" d="M821.7 1044.1H1674V1107.7H821.7ZM669 1465.3H1812.6V1530.4H669ZM1200.5 1069.6H1275.4V1497.8H1200.5ZM821.7 548H1659.9V613H896.6V1072.4H821.7Z M2502.4 1096.4H2575.9V1329.6H2502.4ZM1969.5 1063.9H3107.3V1127.5H1969.5ZM2096.7 1300H2964.6V1698.6H2889.7V1363.6H2096.7ZM2537.7 470.2Q2673.4 470.2 2770.2 499.2Q2867 528.2 2920.7 581.2Q2974.5 634.2 2974.5 710.5Q2974.5 785.4 2920.7 838.4Q2867 891.4 2770.2 919.7Q2673.4 948 2537.7 948Q2404.8 948 2307.3 919.7Q2209.8 891.4 2156 838.4Q2102.3 785.4 2102.3 710.5Q2102.3 634.2 2156 581.2Q2209.8 528.2 2307.3 499.2Q2404.8 470.2 2537.7 470.2ZM2537.7 533.8Q2430.3 533.8 2349.7 555Q2269.1 576.2 2224.6 615.8Q2180.1 655.4 2180.1 710.5Q2180.1 764.2 2224.6 803.8Q2269.1 843.4 2349.7 864.6Q2430.3 885.8 2537.7 885.8Q2646.5 885.8 2727.1 864.6Q2807.7 843.4 2852.2 803.8Q2896.7 764.2 2896.7 710.5Q2896.7 655.4 2852.2 615.8Q2807.7 576.2 2727.1 555Q2646.5 533.8 2537.7 533.8Z"/>
+  </symbol>
+  <!-- 작은 로고(하위 페이지 왼쪽 위): 같은 자리·크기에 Regular 굵기 -->
+  <symbol id="logo-regular" viewBox="0 0 3415 2519">
+    <rect width="3415" height="2519" fill="#000"/>
+    <rect x="591" y="291" width="2319" height="1832" fill="#fff"/>
+    <path clip-path="url(#logo-clip)" fill="#000" d="M809 1027.1H1686.8V1121.9H809ZM662 1449.8H1821V1547.3H662ZM1180.7 1068.1H1296.6V1487.9H1180.7ZM809 531H1674V628.5H926.3V1069.6H809Z M2481.1 1107.7H2597.1V1328.2H2481.1ZM1962.4 1051.2H3117.2V1145.9H1962.4ZM2091 1297.1H2974.5V1708.5H2857.1V1391.8H2091ZM2539.1 458.9Q2677.6 458.9 2778 488.6Q2878.3 518.3 2933.5 573.4Q2988.6 628.5 2988.6 706.3Q2988.6 782.6 2933.5 837.7Q2878.3 892.9 2778 922.5Q2677.6 952.2 2539.1 952.2Q2402 952.2 2300.9 922.5Q2199.9 892.9 2144.7 837.7Q2089.6 782.6 2089.6 706.3Q2089.6 628.5 2144.7 573.4Q2199.9 518.3 2300.9 488.6Q2402 458.9 2539.1 458.9ZM2539.1 552.2Q2438.7 552.2 2364.5 570.6Q2290.3 589 2250 622.9Q2209.8 656.8 2209.8 706.3Q2209.8 754.3 2250 788.3Q2290.3 822.2 2364.5 840.6Q2438.7 858.9 2539.1 858.9Q2640.9 858.9 2715.1 840.6Q2789.3 822.2 2828.9 788.3Q2868.4 754.3 2868.4 706.3Q2868.4 656.8 2828.9 622.9Q2789.3 589 2715.1 570.6Q2640.9 552.2 2539.1 552.2Z"/>
+  </symbol>
+</svg>
+
+<main>
+  <!-- 첫 화면 -->
+  <section class="view view--home" data-view="home" aria-label="첫 화면">
+    <div class="stage" id="stage">
+      <div class="ring" id="ring" aria-hidden="true"></div>
+      <p class="hint">원이 주제를 포함할 때<br>도욱을 누르세요.</p>
+      <ul class="orbit" id="orbit" aria-label="주제">
+        <li data-target="writing"><span>글</span><span>writing</span></li>
+        <li data-target="design"><span>디자인</span><span>design</span></li>
+        <li data-target="education"><span>교육</span><span>education</span></li>
+        <li data-target="singing"><span>노래</span><span>singing</span></li>
+      </ul>
+      <div class="core">
+        <button class="logo" id="core-logo" type="button" aria-label="도욱. 원 안에 주제가 들어왔을 때 누르면 그 주제로 이동합니다.">
+          <svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg>
+        </button>
+      </div>
+      <p class="updated" id="updated">
+        <small><span>최근 업데이트</span><span>Last updated</span></small>
+        <time id="updated-date"></time>
+      </p>
+    </div>
+  </section>
+
+  <!-- 디자인 -->
+  <section class="view" data-view="design" hidden>
+    <div class="page">
+      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
+      <header class="page-head">
+        <h1 class="page-title"><span>디자인</span><span>design</span></h1>
+        <p class="page-intro">하고 싶은 말을 꾸밈없이 하고 싶다.</p>
+      </header>
+      <div class="page-body rows works" id="works"></div>
+    </div>
+  </section>
+
+  <!-- 교육 -->
+  <section class="view" data-view="education" hidden>
+    <div class="page">
+      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
+      <header class="page-head">
+        <h1 class="page-title"><span>교육</span><span>education</span></h1>
+        <p class="page-intro">말하기를 좋아하고 글쓰기도 좋아한다. 삼성서울병원 병원학교에서 아이들을 만나고 있다.</p>
+      </header>
+      <div class="page-body lessons" id="classes"></div>
+    </div>
+  </section>
+
+  <!-- 교육: 수업 하나 (목록에서 누르면 열린다) -->
+  <section class="view" data-view="lesson" hidden>
+    <div class="page">
+      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
+      <article class="lesson" id="lesson"></article>
+    </div>
+  </section>
+
+  <!-- 노래 -->
+  <section class="view" data-view="singing" hidden>
+    <div class="page">
+      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
+      <header class="page-head">
+        <h1 class="page-title"><span>노래</span><span>singing</span></h1>
+        <p class="page-intro">초등학생때부터 기타를 쳤다. <br>그러나 어디가서 언제부터 기타 쳤냐는 질문을 받으면 곤란해한다.</p>
+      </header>
+      <ul class="page-body rows songs" id="songs"></ul>
+    </div>
+  </section>
+
+  <!-- 글 목록 -->
+  <section class="view" data-view="writing" hidden>
+    <div class="page">
+      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
+      <header class="page-head">
+        <h1 class="page-title"><span>글</span><span>writing</span></h1>
+        <p class="page-intro">중학교 2학년때는 글을 쓰면서 이렇게 오글거리는 글을 나중에 읽으면 손발이 오그라들고 <br>닭살이 돋겠지? 라고 생각했으나 현재까지도 이렇게 오글거리는 글을 매일 쓰고 있다.</p>
+      </header>
+      <div class="page-body rows topics" id="topics"></div>
+    </div>
+  </section>
+
+  <!-- 글 한 편 -->
+  <section class="view" data-view="post" hidden>
+    <div class="page">
+      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
+      <article class="post" id="post"></article>
+    </div>
+  </section>
+
+  <!-- 불안 (이스터에그: 최근 업데이트를 빠르게 5번 누르면 열린다) -->
+  <section class="view view--anxiety" data-view="anxiety" hidden>
+    <div class="anxiety-hero">
+      <div class="anxiety">
+        <h1 class="page-title"><span>불안</span><span>anxiety</span></h1>
+        <a class="logo-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg></a>
+        <p>편도체가 만들어내는 제 1의 감정이 불안이라고 한다.<br>모든 감정의 생물학적 원형이 불안이라고 생각하니까<br>불안한 마음이 조금 괜찮아졌다.</p>
+      </div>
+    </div>
+    <section class="anxiety-more" id="anxiety-more" aria-label="불안에 관한 글"></section>
+  </section>
+</main>
+
+<script src="content/data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
