@@ -1,7 +1,7 @@
 /* 사이트에 들어가는 모든 글과 작업 목록. 이 파일이 원본이다.
    웹의 편집 모드에서 저장하면 이 파일이 바뀐다. */
 window.SITE = {
- "updated": "2026-10-15",
+ "updated": "2026-10-20",
  "intro": {
   "design": "하고 싶은 말을 꾸밈없이 하고 싶다.",
   "education": "말하기, 글쓰기를 좋아한다. 수요일마다 아이들을 만나고 있다.",
@@ -9,6 +9,22 @@ window.SITE = {
   "anxiety": "편도체가 만들어내는 제 1의 감정이 불안이라고 한다.\n모든 감정의 생물학적 원형이 불안이라고 생각하니까\n불안한 마음이 조금 괜찮아졌다."
  },
  "design": [
+  {
+   "title": "Form maces content",
+   "period": "2026.10",
+   "cover": "form.jpg",
+   "links": [
+    {
+     "label": "웹",
+     "url": "https://zinoka1225.github.io/form-maces-content/"
+    },
+    {
+     "label": "인스타그램",
+     "url": "INSTAGRAM_URL_TBD"
+    }
+   ],
+   "desc": "화면 크기만큼 채워진 로렘 입숨에서 글자를 골라 세 단어짜리 단문을 만드는 웹을 만들었다. 더미 텍스트에 없는 K는 C로 바뀌어 MAKES가 MACES가 되는, 내용을 뺀 형식이 내용을 정하는 작업이다."
+  },
   {
    "title": "도욱",
    "period": "2026.10",
