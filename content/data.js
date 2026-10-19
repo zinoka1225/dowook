@@ -12,7 +12,7 @@ window.SITE = {
   {
    "title": "Form maces content",
    "period": "2026.10",
-   "cover": "form.jpg",
+   "cover": "form.png",
    "links": [
     {
      "label": "웹",
@@ -23,7 +23,7 @@ window.SITE = {
      "url": "INSTAGRAM_URL_TBD"
     }
    ],
-   "desc": "화면 크기만큼 채워진 로렘 입숨에서 글자를 골라 세 단어짜리 단문을 만드는 웹을 만들었다. 더미 텍스트에 없는 K는 C로 바뀌어 MAKES가 MACES가 되는, 내용을 뺀 형식이 내용을 정하는 작업이다."
+   "desc": "일러스트레이터나 피그마에서 글상자를 만들면 자동으로 채워지는 글을 더미 텍스트(dummy text)라고 한다. 내용이 아닌 형식을 위해 만들어진 글이지만, 때로는 형식 그 자체가 갖는 함의가 더 매력적이다. 창 크기를 직접 바꿔 보며 형식이 만드는 의미를 느껴 보도록 한 작업이다."
   },
   {
    "title": "도욱",
