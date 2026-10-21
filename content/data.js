@@ -1,7 +1,7 @@
 /* 사이트에 들어가는 모든 글과 작업 목록. 이 파일이 원본이다.
    웹의 편집 모드에서 저장하면 이 파일이 바뀐다. */
 window.SITE = {
- "updated": "2026-10-20",
+ "updated": "2026-10-21",
  "intro": {
   "design": "하고 싶은 말을 꾸밈없이 하고 싶다.",
   "education": "말하기, 글쓰기를 좋아한다. 수요일마다 아이들을 만나고 있다.",
@@ -425,6 +425,12 @@ window.SITE = {
   }
  ],
  "songs": [
+  {
+   "file": "goodspeed.mp3",
+   "title": "Goodspeed!",
+   "artist": "혁오",
+   "recorded": "2026.10.21"
+  },
   {
    "file": "untitled.mp3",
    "title": "무제",
