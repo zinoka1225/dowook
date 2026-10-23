@@ -92,7 +92,7 @@ function renderWork(i) {
       <dl>${(w.credits || []).map((c, k) =>
         `<div>${ed(`${b}.credits.${k}.role`, c.role, 'dt')}${ed(`${b}.credits.${k}.name`, c.name, 'dd')}</div>`).join('')}</dl>
       <time>${esc(w.period)}</time>
-      <svg class="logo-mark credits-logo" aria-hidden="true"><use href="#logo"/></svg>
+      <svg class="logo-mark credits-logo" aria-hidden="true"><use href="#logo-medium"/></svg>
     </section>
     <nav class="post-nav" aria-label="다른 작업">
       <a class="u-line post-prev" href="${prev || '#design'}" ${prev ? '' : 'aria-disabled="true" tabindex="-1"'}>전</a>
@@ -213,7 +213,7 @@ songBtns.forEach((btn) => {
   sec.hidden = true;
   sec.innerHTML = `
     <div class="page">
-      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-regular"/></svg></a>
+      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-medium"/></svg></a>
       <form class="setup" id="setup" autocomplete="off">
         <p>이 기기에서 편집할 수 있게 설정합니다. 열쇠는 이 브라우저 안에만 비밀번호로 잠겨 저장됩니다.</p>
         <label>GitHub 열쇠(token)<input type="password" name="token" required></label>
