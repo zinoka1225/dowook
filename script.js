@@ -34,24 +34,73 @@ document.querySelectorAll('[data-edit^="intro."]').forEach((el) => {
   el.innerHTML = brs(SITE.intro[el.dataset.edit.slice(6)] || '');
 });
 
-/* ---------- 디자인 ---------- */
-$('#works').innerHTML = SITE.design.map((w, i) => {
-  const first = w.links[0].url;
-  const links = w.links.length > 1
-    ? `<p class="work-links">${w.links.map((l) => `<a class="u-line" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</p>`
-    : '';
-  return `
-    <article class="two-col work">
-      <div class="work-side">
-        <a class="work-cover" href="${esc(first)}" target="_blank" rel="noopener">
-          <img src="assets/design/${esc(w.cover)}" alt="${esc(w.title)} 표지" loading="lazy">
-        </a>
-        <p class="work-meta"><a class="u-line" href="${esc(first)}" target="_blank" rel="noopener">${ed(`design.${i}.title`, w.title)}</a>${ed(`design.${i}.period`, w.period, 'time')}</p>
-        ${links}
-      </div>
-      ${ed(`design.${i}.desc`, w.desc, 'p', 'work-desc')}
-    </article>`;
-}).join('');
+/* ---------- 디자인: 작업 하나가 한 화면(16:9) ----------
+   목록에는 메인 이미지 한 장 + 왼쪽 위 짧은 소개 + 아래 제목·기간 + 궁금해.
+   이미지나 궁금해를 누르면 #work-번호 상세로 들어간다. */
+function renderWorks() {
+  $('#works').innerHTML = SITE.design.map((w, i) => `
+    <article class="work-frame">
+      ${ed(`design.${i}.intro`, w.intro || '', 'p', 'work-intro')}
+      <a class="work-main" href="#work-${i}"><img src="assets/design/${esc(w.cover)}" alt="${esc(w.title)}" loading="lazy"></a>
+      <p class="work-label">${esc(w.title)} <time>${esc(w.period)}</time></p>
+      <a class="work-more u-line" href="#work-${i}">궁금해</a>
+    </article>`).join('');
+}
+renderWorks();
+
+/* ---------- 디자인 상세: 제목·기간 → 설명 → 이미지들 → 크레딧 ----------
+   이미지를 더 보여주려면 assets/design/ 에 파일을 넣고
+   content/data.js 의 그 작업 "images"에 { "src": "파일이름", "cap": "한 줄 설명" } 을 적는다.
+   비어 있으면 메인 이미지만 보인다. */
+const linkLabel = (l) => l.label || (l.url.includes('instagram.com') ? '인스타그램' : '링크');
+
+function renderWork(i) {
+  const w = SITE.design[i];
+  const el = $('#work');
+  if (!w) { el.innerHTML = '<p>작업을 찾을 수 없습니다. <a class="u-line" href="#design">디자인으로</a></p>'; return; }
+  const b = `design.${i}`;
+  const own = w.images && w.images.length;
+  const imgs = own ? w.images : [{ src: w.cover }];
+  const links = w.links.filter((l) => l.url).map((l) =>
+    `<a class="u-line" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(linkLabel(l))}</a>`).join('');
+  // 목록은 최근 작업이 위. '전'은 더 이전 작업, '다음'은 더 최근 작업
+  const prev = i < SITE.design.length - 1 ? `#work-${i + 1}` : null;
+  const next = i > 0 ? `#work-${i - 1}` : null;
+  el.innerHTML = `
+    <header class="work-head">
+      ${ed(`${b}.title`, w.title, 'h1', 'big')}
+      ${ed(`${b}.period`, w.period, 'time')}
+    </header>
+    ${ed(`${b}.desc`, w.desc, 'p', 'work-summary')}
+    ${links ? `<p class="work-links work-links--center">${links}</p>` : ''}
+    <div class="work-images">
+      ${imgs.map((im, k) => `
+        <figure>
+          <img src="assets/design/${esc(im.src)}" alt="${esc(im.alt || w.title)}" loading="lazy">
+          ${own ? ed(`${b}.images.${k}.cap`, im.cap || '', 'figcaption') : ''}
+        </figure>`).join('')}
+    </div>
+    <section class="credits" aria-label="크레딧">
+      <p class="credits-title">${esc(w.title)}</p>
+      <dl>${(w.credits || []).map((c, k) =>
+        `<div>${ed(`${b}.credits.${k}.role`, c.role, 'dt')}${ed(`${b}.credits.${k}.name`, c.name, 'dd')}</div>`).join('')}</dl>
+      <time>${esc(w.period)}</time>
+      <svg class="logo-mark credits-logo" aria-hidden="true"><use href="#logo"/></svg>
+    </section>
+    <nav class="post-nav" aria-label="다른 작업">
+      <a class="u-line post-prev" href="${prev || '#design'}" ${prev ? '' : 'aria-disabled="true" tabindex="-1"'}>전</a>
+      <a class="post-back" href="#design"><span>디자인</span><span>design</span></a>
+      <a class="u-line post-next" href="${next || '#design'}" ${next ? '' : 'aria-disabled="true" tabindex="-1"'}>다음</a>
+    </nav>`;
+
+  // 크레딧: 스크롤해서 닿으면 한 줄씩 떠오른다
+  const parts = el.querySelectorAll('.credits > *, .credits dl > div');
+  if (!('IntersectionObserver' in window)) { parts.forEach((p) => p.classList.add('is-in')); return; }
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  }), { threshold: 0.6 });
+  parts.forEach((p) => io.observe(p));
+}
 
 /* ---------- 교육: 목록(썸네일 + 기본 정보) → 누르면 #lesson-번호 로 상세 ---------- */
 const lessonDate = (l) => esc(l.date.replaceAll('.', '. '));
@@ -177,7 +226,8 @@ const logo = $('#core-logo');
 function route() {
   const hash = location.hash.slice(1) || 'home';
   const ml = hash.match(/^lesson-(\d+)$/);
-  let name = ml ? 'lesson' : hash;
+  const mw = hash.match(/^work-(\d+)$/);
+  let name = ml ? 'lesson' : mw ? 'work' : hash;
   if (![...views].some((v) => v.dataset.view === name)) {
     if (hash !== 'home') history.replaceState(null, '', location.pathname);
     name = 'home';
@@ -185,6 +235,8 @@ function route() {
   views.forEach((v) => { v.hidden = v.dataset.view !== name; });
   if (name === 'lesson') renderLesson(+ml[1]);
   if (name === 'education') renderClasses();
+  if (name === 'work') renderWork(+mw[1]);
+  if (name === 'design') renderWorks();
   Editor.refresh();
   logo.classList.remove('is-miss');      // 돌아왔을 때 흔들림이 다시 재생되지 않도록
   window.scrollTo(0, 0);

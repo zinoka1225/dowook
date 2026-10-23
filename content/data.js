@@ -12,7 +12,9 @@ window.SITE = {
   {
    "title": "Form maces content",
    "period": "2026.10",
+   "intro": "",
    "cover": "form.png",
+   "images": [],
    "links": [
     {
      "label": "웹",
@@ -23,36 +25,84 @@ window.SITE = {
      "url": "https://www.instagram.com/reel/DeriaACtvVF/"
     }
    ],
-   "desc": "책자를 조판할 때 모양을 보기 위해 임의로 넣어두는 텍스트를 더미 텍스트(dummy text)라고 한다. 내용이 아닌 형식을 위해 만들어진 글이지만 때로는 형식 그 자체가 갖는 함의가 있다. 창 크기를 직접 바꿔볼 수 있다."
+   "desc": "책자를 조판할 때 모양을 보기 위해 임의로 넣어두는 텍스트를 더미 텍스트(dummy text)라고 한다. 내용이 아닌 형식을 위해 만들어진 글이지만 때로는 형식 그 자체가 갖는 함의가 있다. 창 크기를 직접 바꿔볼 수 있다.",
+   "credits": [
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    }
+   ]
   },
   {
    "title": "도욱",
    "period": "2026.10",
+   "intro": "",
    "cover": "douk.jpg",
+   "images": [],
    "links": [
     {
      "label": "",
      "url": "https://www.instagram.com/p/DeR5O2imt_Y/"
     }
    ],
-   "desc": "인스타그램과 웹에 사용할 로고를 디자인했다. 하나의 조형적 기준으로 수렴하는 디자인들이 판치는 시대에 대한 거부의 의사 표현이다."
+   "desc": "인스타그램과 웹에 사용할 로고를 디자인했다. 하나의 조형적 기준으로 수렴하는 디자인들이 판치는 시대에 대한 거부의 의사 표현이다.",
+   "credits": [
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    }
+   ]
   },
   {
    "title": "따로 또 같이",
    "period": "2026.09",
+   "intro": "",
    "cover": "ttaro.jpg",
+   "images": [],
    "links": [
     {
      "label": "",
      "url": "https://www.instagram.com/p/DdTwOuNmuwB/"
     }
    ],
-   "desc": "원 두 개를 반원 호 하나와 1/4 호 둘로 잇는 배치 12개와, 그것을 떼어놓은 배치 12개를 만들었다. ‘따로’ 이루어지는 일과 ‘같이’ 이루어지는 일을 ‘또’ 반복하고 있는 작업이다."
+   "desc": "원 두 개를 반원 호 하나와 1/4 호 둘로 잇는 배치 12개와, 그것을 떼어놓은 배치 12개를 만들었다. ‘따로’ 이루어지는 일과 ‘같이’ 이루어지는 일을 ‘또’ 반복하고 있는 작업이다.",
+   "credits": [
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    }
+   ]
   },
   {
    "title": "유토프",
    "period": "2026.06–07",
+   "intro": "",
    "cover": "utop.jpg",
+   "images": [],
    "links": [
     {
      "label": "레터링",
@@ -63,55 +113,133 @@ window.SITE = {
      "url": "https://www.instagram.com/reel/Daq4Xf4OD8J/"
     }
    ],
-   "desc": "식욕이 죄악인 디스토피아를 레터링과 짧은 영상으로 만들었다. 유토피아에서 단어를 완결시키는 어미 -⁠ia를 떼어내 인간의 기본 욕구가 잘려 나간 세계를 이름에 담았다."
+   "desc": "식욕이 죄악인 디스토피아를 레터링과 짧은 영상으로 만들었다. 유토피아에서 단어를 완결시키는 어미 -⁠ia를 떼어내 인간의 기본 욕구가 잘려 나간 세계를 이름에 담았다.",
+   "credits": [
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    }
+   ]
   },
   {
    "title": "몽유",
    "period": "2026.05–06",
+   "intro": "",
    "cover": "mongyu.jpg",
+   "images": [],
    "links": [
     {
      "label": "",
      "url": "https://www.instagram.com/reel/DZm8jd1u-vS/"
     }
    ],
-   "desc": "노인과 비둘기의 하루를 겹쳐 보여주는 영상을 만들었다. 노인과 나 사이의 시간의 간극이 어떤 임계를 넘을 때 필요해지는 다른 셈법에 대한 이야기다."
+   "desc": "노인과 비둘기의 하루를 겹쳐 보여주는 영상을 만들었다. 노인과 나 사이의 시간의 간극이 어떤 임계를 넘을 때 필요해지는 다른 셈법에 대한 이야기다.",
+   "credits": [
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    }
+   ]
   },
   {
    "title": "책을 읽는 것보다 사는 걸 더 좋아하는 나를 위한",
    "period": "2026.04–06",
+   "intro": "",
    "cover": "book.jpg",
+   "images": [],
    "links": [
     {
      "label": "",
      "url": "https://www.instagram.com/p/DZnMidZms11/"
     }
    ],
-   "desc": "고3 한 해 동안 쓴 소설과 토막글 28편을 B6, 약 120쪽의 책으로 엮었다. 흐릿하지만 그럼에도 주목했으면 하는 그 시기의 흔적을 남겨두는 작업이다."
+   "desc": "고3 한 해 동안 쓴 소설과 토막글 28편을 B6, 약 120쪽의 책으로 엮었다. 흐릿하지만 그럼에도 주목했으면 하는 그 시기의 흔적을 남겨두는 작업이다.",
+   "credits": [
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    }
+   ]
   },
   {
    "title": "내가 쏘아올린 작지 않은 공",
    "period": "2026.03–06",
+   "intro": "",
    "cover": "mentor.jpg",
+   "images": [],
    "links": [
     {
      "label": "",
      "url": "https://www.instagram.com/p/DZxfZB-GpgF/"
     }
    ],
-   "desc": "초등학생 때의 일기와 지금의 내가 덧붙인 글을 짝지어 12장의 소책자로 만들었다. 어린 시절의 기록에서 현재 나의 원형을 탐색한 작업이었다."
+   "desc": "초등학생 때의 일기와 지금의 내가 덧붙인 글을 짝지어 12장의 소책자로 만들었다. 어린 시절의 기록에서 현재 나의 원형을 탐색한 작업이었다.",
+   "credits": [
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    }
+   ]
   },
   {
    "title": "바다가",
    "period": "2026.04",
+   "intro": "",
    "cover": "bada.jpg",
+   "images": [],
    "links": [
     {
      "label": "",
      "url": "https://www.instagram.com/p/Dae-pb0kdBj/"
     }
    ],
-   "desc": "자리돔 한 마리가 수족관 앞 아이에게 자기가 살던 바다 마을 이야기를 들려주는 그림책을 만들었다."
+   "desc": "자리돔 한 마리가 수족관 앞 아이에게 자기가 살던 바다 마을 이야기를 들려주는 그림책을 만들었다.",
+   "credits": [
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    },
+    {
+     "role": "",
+     "name": ""
+    }
+   ]
   }
  ],
  "education": [
