@@ -153,7 +153,9 @@ p { text-wrap: pretty; }   /* 마지막 줄에 한 단어만 남는 것 방지 *
 
 /* 디자인 목록: 작업 하나가 16:9 한 화면. 메인 이미지는 가운데,
    왼쪽 위 짧은 소개 · 왼쪽 아래 제목과 기간 · 오른쪽 아래 궁금해 */
-.works { display: grid; gap: calc(700 * var(--t)); }
+/* 작업과 작업 사이는 이미지 한 장 높이의 1/3쯤 비워서 한 작업씩 끊어 보이게 */
+.works { display: grid; gap: calc(2200 * var(--t)); }
+.page-body.works { margin-top: calc(1900 * var(--t)); }   /* 디자인 소개 한 줄과 첫 작업 사이도 넉넉하게 */
 .work-frame {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -175,7 +177,7 @@ p { text-wrap: pretty; }   /* 마지막 줄에 한 단어만 남는 것 방지 *
 body.is-editing .work-intro:empty { display: block; min-width: 6em; }
 body.is-editing .work-intro:empty::before { content: "짧은 소개"; color: var(--muted); }
 @media (max-width: 760px) {
-  .works { gap: calc(900 * var(--t)); }
+  .works { gap: calc(1500 * var(--t)); }
   .work-frame {
     aspect-ratio: auto; max-height: none;
     display: grid;
@@ -199,7 +201,7 @@ body.is-editing .work-intro:empty::before { content: "짧은 소개"; color: var
 .work-links--center { justify-content: center; margin-top: 1.2em; }
 .work-images { display: grid; justify-items: center; gap: calc(500 * var(--t)); margin-top: 4em; }
 .work-images figure { display: grid; justify-items: center; gap: .6em; max-width: 100%; }
-.work-images img { width: auto; max-width: 100%; max-height: 88vh; }
+.work-images img, .work-images video { display: block; width: auto; max-width: 100%; max-height: 88vh; }
 .work-images figcaption { color: var(--muted); text-align: center; }
 .work-images figcaption:empty { display: none; }
 body.is-editing .work-images figcaption:empty { display: block; min-width: 8em; }

@@ -74,11 +74,18 @@ function renderWork(i) {
     ${ed(`${b}.desc`, w.desc, 'p', 'work-summary')}
     ${links ? `<p class="work-links work-links--center">${links}</p>` : ''}
     <div class="work-images">
-      ${imgs.map((im, k) => `
+      ${imgs.map((im, k) => {
+        const src = `assets/design/${esc(im.src)}`;
+        // .mp4 는 소리 없이 반복 재생되는 짧은 영상으로 넣는다
+        const media = /\.(mp4|webm)$/i.test(im.src)
+          ? `<video src="${src}" muted autoplay loop playsinline preload="metadata" aria-label="${esc(im.alt || w.title)}"></video>`
+          : `<img src="${src}" alt="${esc(im.alt || w.title)}" loading="lazy">`;
+        return `
         <figure>
-          <img src="assets/design/${esc(im.src)}" alt="${esc(im.alt || w.title)}" loading="lazy">
+          ${media}
           ${own ? ed(`${b}.images.${k}.cap`, im.cap || '', 'figcaption') : ''}
-        </figure>`).join('')}
+        </figure>`;
+      }).join('')}
     </div>
     <section class="credits" aria-label="크레딧">
       <p class="credits-title">${esc(w.title)}</p>

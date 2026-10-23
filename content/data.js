@@ -14,7 +14,24 @@ window.SITE = {
    "period": "2026.10",
    "intro": "",
    "cover": "form.png",
-   "images": [],
+   "images": [
+    {
+     "src": "form/form-loop.mp4",
+     "cap": ""
+    },
+    {
+     "src": "form/form-01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "form/form-03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "form/form-04.jpg",
+     "cap": ""
+    }
+   ],
    "links": [
     {
      "label": "웹",
@@ -46,7 +63,36 @@ window.SITE = {
    "period": "2026.10",
    "intro": "",
    "cover": "douk.jpg",
-   "images": [],
+   "images": [
+    {
+     "src": "douk/douk-01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "douk/douk-02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "douk/douk-03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "douk/douk-04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "douk/douk-05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "douk/douk-06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "douk/douk-07.jpg",
+     "cap": ""
+    }
+   ],
    "links": [
     {
      "label": "",
@@ -74,7 +120,36 @@ window.SITE = {
    "period": "2026.09",
    "intro": "",
    "cover": "ttaro.jpg",
-   "images": [],
+   "images": [
+    {
+     "src": "ttaro/ttaro-01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "ttaro/ttaro-02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "ttaro/ttaro-03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "ttaro/ttaro-04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "ttaro/ttaro-05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "ttaro/ttaro-06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "ttaro/ttaro-07.jpg",
+     "cap": ""
+    }
+   ],
    "links": [
     {
      "label": "",
@@ -102,7 +177,64 @@ window.SITE = {
    "period": "2026.06–07",
    "intro": "",
    "cover": "utop.jpg",
-   "images": [],
+   "images": [
+    {
+     "src": "utop/utop-loop.mp4",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-drawing.mp4",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-08.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-09.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-10.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-11.jpg",
+     "cap": ""
+    },
+    {
+     "src": "utop/utop-12.jpg",
+     "cap": ""
+    }
+   ],
    "links": [
     {
      "label": "레터링",
@@ -134,7 +266,56 @@ window.SITE = {
    "period": "2026.05–06",
    "intro": "",
    "cover": "mongyu.jpg",
-   "images": [],
+   "images": [
+    {
+     "src": "mongyu/mongyu-loop.mp4",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-08.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-09.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-10.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mongyu/mongyu-11.jpg",
+     "cap": ""
+    }
+   ],
    "links": [
     {
      "label": "",
@@ -162,7 +343,48 @@ window.SITE = {
    "period": "2026.04–06",
    "intro": "",
    "cover": "book.jpg",
-   "images": [],
+   "images": [
+    {
+     "src": "book/book-01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "book/book-02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "book/book-03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "book/book-04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "book/book-05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "book/book-06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "book/book-07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "book/book-08.jpg",
+     "cap": ""
+    },
+    {
+     "src": "book/book-09.jpg",
+     "cap": ""
+    },
+    {
+     "src": "book/book-10.jpg",
+     "cap": ""
+    }
+   ],
    "links": [
     {
      "label": "",
@@ -190,7 +412,52 @@ window.SITE = {
    "period": "2026.03–06",
    "intro": "",
    "cover": "mentor.jpg",
-   "images": [],
+   "images": [
+    {
+     "src": "mentor/mentor-01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-08.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-09.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-10.jpg",
+     "cap": ""
+    },
+    {
+     "src": "mentor/mentor-11.jpg",
+     "cap": ""
+    }
+   ],
    "links": [
     {
      "label": "",
@@ -218,7 +485,84 @@ window.SITE = {
    "period": "2026.04",
    "intro": "",
    "cover": "bada.jpg",
-   "images": [],
+   "images": [
+    {
+     "src": "bada/bada-01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-08.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-09.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-10.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-11.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-12.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-13.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-14.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-15.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-16.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-17.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-18.jpg",
+     "cap": ""
+    },
+    {
+     "src": "bada/bada-19.jpg",
+     "cap": ""
+    }
+   ],
    "links": [
     {
      "label": "",
