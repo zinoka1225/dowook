@@ -48,19 +48,50 @@ function renderWorks() {
 }
 renderWorks();
 
-/* ---------- 디자인 상세: 제목·기간 → 설명 → 이미지들 → 크레딧 ----------
-   이미지를 더 보여주려면 assets/design/ 에 파일을 넣고
-   content/data.js 의 그 작업 "images"에 { "src": "파일이름", "cap": "한 줄 설명" } 을 적는다.
-   비어 있으면 메인 이미지만 보인다. */
+/* ---------- 디자인 상세: 제목·기간 → 설명 → 블록들 → 크레딧 ----------
+   content/data.js 의 그 작업 "blocks"에 위에서부터 차례로 놓인다. 블록 종류:
+   image  { src }                         이미지 한 장
+   loop   { src }                         소리 없이 반복되는 짧은 영상
+   film   { src, poster }                 소리 있는 영상(누르면 재생)
+   frames { frames: [{ src, ms }] }       이미지 여러 장이 정해진 간격으로 넘어가며 반복
+   shuffle{ dir, prefix, n, cols, rows, ms, ratio }  격자 이미지가 계속 다른 이미지로 바뀜
+   pair   { left, right }                 왼쪽·오른쪽을 휠(또는 누르기)로 따로 넘겨 조합해 보기
+   book   { dir, n, pad, ratio, max, label, toc }    실제 책처럼 좌우로 넘겨 보기
+   모든 경로는 assets/design/ 기준. "cap"을 적으면 아래에 한 줄 설명이 붙는다. */
 const linkLabel = (l) => l.label || (l.url.includes('instagram.com') ? '인스타그램' : '링크');
+const A = (src) => `assets/design/${esc(src)}`;
+let workCleanups = [];
+function stopWork() { workCleanups.forEach((f) => f()); workCleanups = []; }
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+function blockHTML(bl, w, path, k) {
+  const alt = esc(w.title);
+  const cap = 'cap' in bl ? ed(`${path}.cap`, bl.cap || '', 'figcaption') : '';
+  switch (bl.type) {
+    case 'loop':
+      return `<figure class="blk"><video src="${A(bl.src)}" muted autoplay loop playsinline preload="auto" aria-label="${alt}"></video>${cap}</figure>`;
+    case 'film':
+      return `<figure class="blk blk-film"><video src="${A(bl.src)}" ${bl.poster ? `poster="${A(bl.poster)}"` : ''} controls playsinline preload="metadata" aria-label="${alt} 영상"></video>${cap}</figure>`;
+    case 'frames':
+      return `<figure class="blk" data-blk="frames" data-k="${k}"><img src="${A(bl.frames[0].src)}" alt="${alt}">${cap}</figure>`;
+    case 'shuffle':
+      return `<figure class="blk blk-shuffle" data-blk="shuffle" data-k="${k}"><div class="shuffle" style="--cols:${bl.cols};--ratio:${bl.ratio}"></div>${cap}</figure>`;
+    case 'pair':
+      return `<figure class="blk blk-pair" data-blk="pair" data-k="${k}"><div class="pair"></div>${cap}</figure>`;
+    case 'book':
+      return `<div class="blk-book" data-blk="book" data-k="${k}">${bl.label ? `<button type="button" class="book-label">${esc(bl.label)}</button>` : ''}</div>`;
+    default:
+      return `<figure class="blk"><img src="${A(bl.src)}" alt="${alt}" loading="lazy">${cap}</figure>`;
+  }
+}
 
 function renderWork(i) {
+  stopWork();
   const w = SITE.design[i];
   const el = $('#work');
   if (!w) { el.innerHTML = '<p>작업을 찾을 수 없습니다. <a class="u-line" href="#design">디자인으로</a></p>'; return; }
   const b = `design.${i}`;
-  const own = w.images && w.images.length;
-  const imgs = own ? w.images : [{ src: w.cover }];
+  const blocks = w.blocks && w.blocks.length ? w.blocks : [{ type: 'image', src: w.cover }];
   const links = w.links.filter((l) => l.url).map((l) =>
     `<a class="u-line" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(linkLabel(l))}</a>`).join('');
   // 목록은 최근 작업이 위. '전'은 더 이전 작업, '다음'은 더 최근 작업
@@ -68,24 +99,13 @@ function renderWork(i) {
   const next = i > 0 ? `#work-${i - 1}` : null;
   el.innerHTML = `
     <header class="work-head">
-      ${ed(`${b}.title`, w.title, 'h1', 'big')}
+      ${ed(`${b}.title`, w.title, 'h1', 'big work-title')}
       ${ed(`${b}.period`, w.period, 'time')}
     </header>
     ${ed(`${b}.desc`, w.desc, 'p', 'work-summary')}
     ${links ? `<p class="work-links work-links--center">${links}</p>` : ''}
     <div class="work-images">
-      ${imgs.map((im, k) => {
-        const src = `assets/design/${esc(im.src)}`;
-        // .mp4 는 소리 없이 반복 재생되는 짧은 영상으로 넣는다
-        const media = /\.(mp4|webm)$/i.test(im.src)
-          ? `<video src="${src}" muted autoplay loop playsinline preload="metadata" aria-label="${esc(im.alt || w.title)}"></video>`
-          : `<img src="${src}" alt="${esc(im.alt || w.title)}" loading="lazy">`;
-        return `
-        <figure>
-          ${media}
-          ${own ? ed(`${b}.images.${k}.cap`, im.cap || '', 'figcaption') : ''}
-        </figure>`;
-      }).join('')}
+      ${blocks.map((bl, k) => blockHTML(bl, w, `${b}.blocks.${k}`, k)).join('')}
     </div>
     <section class="credits" aria-label="크레딧">
       <p class="credits-title">${esc(w.title)}</p>
@@ -100,6 +120,22 @@ function renderWork(i) {
       <a class="u-line post-next" href="${next || '#design'}" ${next ? '' : 'aria-disabled="true" tabindex="-1"'}>다음</a>
     </nav>`;
 
+  // 움직이는 블록 켜기
+  const books = [];
+  el.querySelectorAll('[data-blk]').forEach((node) => {
+    const bl = blocks[+node.dataset.k];
+    if (bl.type === 'frames') startFrames(node, bl);
+    if (bl.type === 'shuffle') startShuffle(node, bl, w);
+    if (bl.type === 'pair') startPair(node, bl, w);
+    if (bl.type === 'book') books.push(makeBook(node, bl, w));
+  });
+  // 제목을 누르면 이 페이지의 책들이 모두 첫 장으로
+  el.querySelector('.work-title').addEventListener('click', () => {
+    if (document.body.classList.contains('is-editing')) return;
+    books.forEach((bk) => bk.home());
+  });
+  workCleanups.push(() => el.querySelectorAll('video').forEach((v) => v.pause()));
+
   // 크레딧: 스크롤해서 닿으면 한 줄씩 떠오른다
   const parts = el.querySelectorAll('.credits > *, .credits dl > div');
   if (!('IntersectionObserver' in window)) { parts.forEach((p) => p.classList.add('is-in')); return; }
@@ -107,6 +143,196 @@ function renderWork(i) {
     if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
   }), { threshold: 0.6 });
   parts.forEach((p) => io.observe(p));
+  workCleanups.push(() => io.disconnect());
+}
+
+/* 이미지 여러 장을 정해진 간격(ms)으로 넘기며 반복 */
+function startFrames(node, bl) {
+  const img = node.querySelector('img');
+  bl.frames.forEach((f) => { const im = new Image(); im.src = A(f.src); });   // 미리 불러 두기
+  if (reduceMotion.matches) return;
+  let k = 0, t = null;
+  const tick = () => { k = (k + 1) % bl.frames.length; img.src = A(bl.frames[k].src); t = setTimeout(tick, bl.frames[k].ms); };
+  t = setTimeout(tick, bl.frames[0].ms);
+  workCleanups.push(() => clearTimeout(t));
+}
+
+/* 격자(cols×rows)에 n장 중 일부를 놓고, ms마다 모든 칸을 다른 이미지로 바꾼다 */
+function startShuffle(node, bl, w) {
+  const grid = node.querySelector('.shuffle');
+  const cells = bl.cols * bl.rows;
+  const src = (j) => A(`${bl.dir}/${bl.prefix}${String(j).padStart(2, '0')}.jpg`);
+  for (let j = 1; j <= bl.n; j++) { const im = new Image(); im.src = src(j); }
+  const pick = (avoid) => {            // 겹치지 않게 cells장 고르기. 가능하면 직전과 같은 칸에 같은 그림이 오지 않게
+    const pool = [...Array(bl.n).keys()].map((x) => x + 1).sort(() => Math.random() - 0.5);
+    const out = [];
+    for (let c = 0; c < cells; c++) {
+      let at = pool.findIndex((x) => !avoid || x !== avoid[c]);
+      if (at < 0) at = 0;
+      out.push(pool.splice(at, 1)[0]);
+    }
+    return out;
+  };
+  let cur = pick();
+  grid.innerHTML = cur.map((j) => `<img src="${src(j)}" alt="">`).join('');
+  grid.setAttribute('role', 'img');
+  grid.setAttribute('aria-label', `${w.title} 이미지 ${bl.n}장이 계속 바뀌는 격자`);
+  if (reduceMotion.matches) return;
+  const imgs = [...grid.children];
+  const t = setInterval(() => { cur = pick(cur); imgs.forEach((im, c) => { im.src = src(cur[c]); }); }, bl.ms);
+  workCleanups.push(() => clearInterval(t));
+}
+
+/* 왼쪽·오른쪽 칸을 따로 넘겨 보며 조합: 그 칸 위에서 휠을 굴리거나 누르면 다음 장 */
+function startPair(node, bl, w) {
+  const box = node.querySelector('.pair');
+  const sides = ['left', 'right'].map((side) => {
+    const c = bl[side];
+    const src = (j) => A(`${c.dir}/${c.prefix}${String(j).padStart(2, '0')}.${c.ext || 'jpg'}`);
+    for (let j = 1; j <= c.n; j++) { const im = new Image(); im.src = src(j); }
+    const col = document.createElement('div');
+    col.className = 'pair-col';
+    col.innerHTML = `
+      <p class="pair-label">${esc(c.label || '')}</p>
+      <button type="button" class="pair-img" aria-label="${esc(c.label || side)} 다음 그림"><img src="${src(1)}" alt="${esc(w.title)} ${esc(c.label || '')} 1"></button>
+      <p class="pair-count">1 / ${c.n}</p>`;
+    box.appendChild(col);
+    const img = col.querySelector('img'), count = col.querySelector('.pair-count');
+    let k = 1, acc = 0, last = 0;
+    const show = (d) => { k = ((k - 1 + d) % c.n + c.n) % c.n + 1; img.src = src(k); img.alt = `${w.title} ${c.label || ''} ${k}`; count.textContent = `${k} / ${c.n}`; };
+    const pad = col.querySelector('.pair-img');
+    pad.addEventListener('click', () => show(1));
+    pad.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      acc += e.deltaY;
+      const now = performance.now();
+      if (Math.abs(acc) >= 40 && now - last > 90) { show(acc > 0 ? 1 : -1); acc = 0; last = now; }
+    }, { passive: false });
+    pad.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { e.preventDefault(); show(e.key === 'ArrowDown' ? 1 : -1); }
+    });
+    return col;
+  });
+  return sides;
+}
+
+/* ---------- 책: 실제 책처럼 좌우로 넘겨 보기 ----------
+   첫 장(표지)은 오른쪽에 혼자, 그다음부터 [짝수, 홀수], 쪽 수가 짝수면 마지막 장은 왼쪽에 혼자 */
+function spreadsOf(n) {
+  const s = [[null, 1]];
+  for (let p = 2; p <= n; p += 2) s.push([p, p + 1 <= n ? p + 1 : null]);
+  return s;
+}
+function makeBook(host, bl, w) {
+  const spreads = spreadsOf(bl.n);
+  const src = (p) => A(`${bl.dir}/p-${String(p).padStart(bl.pad || 2, '0')}.jpg`);
+  const name = `${w.title}${bl.label ? ` (${bl.label})` : ''}`;
+  let cur = 0, busy = false;
+
+  const row = document.createElement('div');
+  row.className = 'book-row' + (bl.toc ? ' has-toc' : '');
+  row.innerHTML = `
+    <div class="book-main">
+      <div class="bk-stage" style="--ratio:${2 * bl.ratio}; --max:${bl.max || 1100}px" tabindex="0" aria-label="${esc(name)}. 좌우 화살표로 넘겨 보세요.">
+        <div class="spread"><div class="half l"></div><div class="half r"></div></div>
+        <button class="hit prev" type="button" aria-label="앞 장"></button>
+        <button class="hit next" type="button" aria-label="다음 장"></button>
+      </div>
+      <nav class="book-nav" aria-label="쪽 이동">
+        <button class="prev-t" type="button">전</button>
+        <span class="count" aria-live="polite"></span>
+        <button class="next-t" type="button">다음</button>
+      </nav>
+    </div>`;
+  host.appendChild(row);
+
+  const stage = row.querySelector('.bk-stage');
+  const spread = row.querySelector('.spread');
+  const L = row.querySelector('.half.l'), R = row.querySelector('.half.r');
+  const count = row.querySelector('.count');
+  const btns = { prev: [row.querySelector('.hit.prev'), row.querySelector('.prev-t')], next: [row.querySelector('.hit.next'), row.querySelector('.next-t')] };
+  const img = (p) => p ? `<img src="${src(p)}" alt="${esc(name)} ${p}쪽" draggable="false">` : '';
+  const warm = (k) => (spreads[k] || []).forEach((p) => { if (p) { const im = new Image(); im.src = src(p); } });
+  let tocEl = null;
+
+  function paint(k) {
+    const [a, c] = spreads[k];
+    L.innerHTML = img(a); R.innerHTML = img(c);
+    spread.classList.toggle('is-first', a === null);
+    spread.classList.toggle('is-last', c === null && a !== null);
+    count.textContent = a && c ? `${a}–${c} / ${bl.n}` : `${a || c} / ${bl.n}`;
+    btns.prev.forEach((x) => { x.disabled = k === 0; });
+    btns.next.forEach((x) => { x.disabled = k === spreads.length - 1; });
+    warm(k + 1); warm(k + 2); warm(k - 1);
+    if (tocEl) tocEl.querySelectorAll('button[data-p]').forEach((x) => {
+      const p = +x.dataset.p; x.classList.toggle('is-here', p === a || p === c);
+    });
+  }
+
+  function go(to) {
+    if (busy || to === cur || to < 0 || to >= spreads.length) return;
+    const fwd = to > cur, from = spreads[cur], dest = spreads[to];
+    // 표지·마지막 장으로 오갈 때(책이 가운데로 움직일 때)나 멀리 건너뛸 때는 넘김 없이 바로 바꾼다
+    const plain = reduceMotion.matches || Math.abs(to - cur) > 1
+      || (fwd ? from[1] === null || dest[0] === null : from[0] === null || dest[1] === null);
+    if (plain) { cur = to; paint(cur); return; }
+    busy = true;
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf ' + (fwd ? 'fwd' : 'back');
+    leaf.innerHTML = fwd
+      ? `<div class="face f">${img(from[1])}</div><div class="face b">${img(dest[0])}</div>`
+      : `<div class="face f">${img(from[0])}</div><div class="face b">${img(dest[1])}</div>`;
+    if (fwd) R.innerHTML = img(dest[1]); else L.innerHTML = img(dest[0]);
+    spread.appendChild(leaf);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      leaf.classList.add('turning');
+      leaf.style.transform = `rotateY(${fwd ? -180 : 180}deg)`;
+    }));
+    const done = () => { if (!busy) return; cur = to; paint(cur); leaf.remove(); busy = false; };
+    leaf.addEventListener('transitionend', (e) => { if (e.target === leaf && e.propertyName === 'transform') done(); });
+    setTimeout(done, 1000);   // transitionend가 오지 않는 경우 대비
+  }
+  const step = (d) => go(cur + d);
+
+  btns.prev.forEach((x) => x.addEventListener('click', () => step(-1)));
+  btns.next.forEach((x) => x.addEventListener('click', () => step(1)));
+  stage.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+  });
+  let x0 = null;   // 휴대폰: 좌우로 밀어서 넘기기
+  stage.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+  });
+  const home = () => { busy = false; spread.querySelectorAll('.leaf').forEach((x) => x.remove()); cur = 0; paint(0); };
+  const label = host.querySelector('.book-label');
+  if (label) { row.prepend(label); label.addEventListener('click', home); }
+
+  // 목차: 책 높이만큼만 보이고, 넘치는 부분은 휠로 내려 본다
+  if (bl.toc) {
+    const spreadOfPage = (p) => spreads.findIndex(([a, c]) => a === p || c === p);
+    const li = (it) => `<li${it.items ? ' class="ch"' : ''}><button type="button" data-p="${it.p}"><span class="t">${esc(it.t)}</span><span class="pg">${it.p}</span></button>${it.items ? `<ol>${it.items.map(li).join('')}</ol>` : ''}</li>`;
+    tocEl = document.createElement('nav');
+    tocEl.className = 'toc';
+    tocEl.setAttribute('aria-label', '목차');
+    tocEl.innerHTML = `<p class="toc-h">목차</p><ol class="toc-top">${bl.toc.map(li).join('')}</ol>`;
+    row.appendChild(tocEl);
+    tocEl.addEventListener('click', (e) => {
+      const x = e.target.closest('button[data-p]');
+      if (!x) return;
+      go(spreadOfPage(+x.dataset.p));
+      stage.focus({ preventScroll: true });
+    });
+    const fit = () => { tocEl.style.height = matchMedia('(max-width: 860px)').matches ? '' : `${stage.offsetHeight}px`; };
+    const ro = new ResizeObserver(fit); ro.observe(stage); fit();
+    workCleanups.push(() => ro.disconnect());
+  }
+
+  paint(0);
+  return { home, go };
 }
 
 /* ---------- 교육: 목록(썸네일 + 기본 정보) → 누르면 #lesson-번호 로 상세 ---------- */
@@ -242,7 +468,7 @@ function route() {
   views.forEach((v) => { v.hidden = v.dataset.view !== name; });
   if (name === 'lesson') renderLesson(+ml[1]);
   if (name === 'education') renderClasses();
-  if (name === 'work') renderWork(+mw[1]);
+  if (name === 'work') renderWork(+mw[1]); else stopWork();
   if (name === 'design') renderWorks();
   Editor.refresh();
   logo.classList.remove('is-miss');      // 돌아왔을 때 흔들림이 다시 재생되지 않도록

@@ -14,24 +14,6 @@ window.SITE = {
    "period": "2026.10",
    "intro": "",
    "cover": "form.png",
-   "images": [
-    {
-     "src": "form/form-loop.mp4",
-     "cap": ""
-    },
-    {
-     "src": "form/form-01.jpg",
-     "cap": ""
-    },
-    {
-     "src": "form/form-03.jpg",
-     "cap": ""
-    },
-    {
-     "src": "form/form-04.jpg",
-     "cap": ""
-    }
-   ],
    "links": [
     {
      "label": "웹",
@@ -43,6 +25,28 @@ window.SITE = {
     }
    ],
    "desc": "책자를 조판할 때 모양을 보기 위해 임의로 넣어두는 텍스트를 더미 텍스트(dummy text)라고 한다. 내용이 아닌 형식을 위해 만들어진 글이지만 때로는 형식 그 자체가 갖는 함의가 있다. 창 크기를 직접 바꿔볼 수 있다.",
+   "blocks": [
+    {
+     "type": "loop",
+     "src": "form/form-intro.mp4",
+     "cap": ""
+    },
+    {
+     "type": "image",
+     "src": "form/thumb.jpg",
+     "cap": ""
+    },
+    {
+     "type": "image",
+     "src": "form/shot-1.jpg",
+     "cap": ""
+    },
+    {
+     "type": "image",
+     "src": "form/shot-2.jpg",
+     "cap": ""
+    }
+   ],
    "credits": [
     {
      "role": "",
@@ -63,36 +67,6 @@ window.SITE = {
    "period": "2026.10",
    "intro": "",
    "cover": "douk.jpg",
-   "images": [
-    {
-     "src": "douk/douk-01.jpg",
-     "cap": ""
-    },
-    {
-     "src": "douk/douk-02.jpg",
-     "cap": ""
-    },
-    {
-     "src": "douk/douk-03.jpg",
-     "cap": ""
-    },
-    {
-     "src": "douk/douk-04.jpg",
-     "cap": ""
-    },
-    {
-     "src": "douk/douk-05.jpg",
-     "cap": ""
-    },
-    {
-     "src": "douk/douk-06.jpg",
-     "cap": ""
-    },
-    {
-     "src": "douk/douk-07.jpg",
-     "cap": ""
-    }
-   ],
    "links": [
     {
      "label": "",
@@ -100,6 +74,40 @@ window.SITE = {
     }
    ],
    "desc": "인스타그램과 웹에 사용할 로고를 디자인했다. 하나의 조형적 기준으로 수렴하는 디자인들이 판치는 시대에 대한 거부의 의사 표현이다.",
+   "blocks": [
+    {
+     "type": "frames",
+     "frames": [
+      {
+       "src": "douk/v2-1.jpg",
+       "ms": 400
+      },
+      {
+       "src": "douk/v2-2.jpg",
+       "ms": 400
+      },
+      {
+       "src": "douk/v2-3.jpg",
+       "ms": 400
+      },
+      {
+       "src": "douk/v2-4.jpg",
+       "ms": 400
+      }
+     ],
+     "cap": ""
+    },
+    {
+     "type": "image",
+     "src": "douk/phone-1.jpg",
+     "cap": ""
+    },
+    {
+     "type": "image",
+     "src": "douk/phone-2.jpg",
+     "cap": ""
+    }
+   ],
    "credits": [
     {
      "role": "",
@@ -120,36 +128,6 @@ window.SITE = {
    "period": "2026.09",
    "intro": "",
    "cover": "ttaro.jpg",
-   "images": [
-    {
-     "src": "ttaro/ttaro-01.jpg",
-     "cap": ""
-    },
-    {
-     "src": "ttaro/ttaro-02.jpg",
-     "cap": ""
-    },
-    {
-     "src": "ttaro/ttaro-03.jpg",
-     "cap": ""
-    },
-    {
-     "src": "ttaro/ttaro-04.jpg",
-     "cap": ""
-    },
-    {
-     "src": "ttaro/ttaro-05.jpg",
-     "cap": ""
-    },
-    {
-     "src": "ttaro/ttaro-06.jpg",
-     "cap": ""
-    },
-    {
-     "src": "ttaro/ttaro-07.jpg",
-     "cap": ""
-    }
-   ],
    "links": [
     {
      "label": "",
@@ -157,6 +135,31 @@ window.SITE = {
     }
    ],
    "desc": "원 두 개를 반원 호 하나와 1/4 호 둘로 잇는 배치 12개와, 그것을 떼어놓은 배치 12개를 만들었다. ‘따로’ 이루어지는 일과 ‘같이’ 이루어지는 일을 ‘또’ 반복하고 있는 작업이다.",
+   "blocks": [
+    {
+     "type": "image",
+     "src": "ttaro/poster.jpg",
+     "cap": ""
+    },
+    {
+     "type": "pair",
+     "left": {
+      "label": "따로",
+      "dir": "ttaro/apart",
+      "prefix": "a-",
+      "ext": "png",
+      "n": 12
+     },
+     "right": {
+      "label": "같이",
+      "dir": "ttaro/together",
+      "prefix": "t-",
+      "ext": "png",
+      "n": 12
+     },
+     "cap": ""
+    }
+   ],
    "credits": [
     {
      "role": "",
@@ -177,64 +180,6 @@ window.SITE = {
    "period": "2026.06–07",
    "intro": "",
    "cover": "utop.jpg",
-   "images": [
-    {
-     "src": "utop/utop-loop.mp4",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-01.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-02.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-drawing.mp4",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-03.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-04.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-05.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-06.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-07.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-08.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-09.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-10.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-11.jpg",
-     "cap": ""
-    },
-    {
-     "src": "utop/utop-12.jpg",
-     "cap": ""
-    }
-   ],
    "links": [
     {
      "label": "레터링",
@@ -246,6 +191,29 @@ window.SITE = {
     }
    ],
    "desc": "식욕이 죄악인 디스토피아를 레터링과 짧은 영상으로 만들었다. 유토피아에서 단어를 완결시키는 어미 -⁠ia를 떼어내 인간의 기본 욕구가 잘려 나간 세계를 이름에 담았다.",
+   "blocks": [
+    {
+     "type": "image",
+     "src": "utop.jpg",
+     "cap": ""
+    },
+    {
+     "type": "film",
+     "src": "utop/utop-film.mp4",
+     "poster": "utop/utop-film.jpg",
+     "cap": ""
+    },
+    {
+     "type": "loop",
+     "src": "utop/utop-lettering.mp4",
+     "cap": ""
+    },
+    {
+     "type": "image",
+     "src": "utop/utop-variation.jpg",
+     "cap": ""
+    }
+   ],
    "credits": [
     {
      "role": "",
@@ -266,56 +234,6 @@ window.SITE = {
    "period": "2026.05–06",
    "intro": "",
    "cover": "mongyu.jpg",
-   "images": [
-    {
-     "src": "mongyu/mongyu-loop.mp4",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-01.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-02.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-03.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-04.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-05.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-06.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-07.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-08.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-09.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-10.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mongyu/mongyu-11.jpg",
-     "cap": ""
-    }
-   ],
    "links": [
     {
      "label": "",
@@ -323,6 +241,19 @@ window.SITE = {
     }
    ],
    "desc": "노인과 비둘기의 하루를 겹쳐 보여주는 영상을 만들었다. 노인과 나 사이의 시간의 간극이 어떤 임계를 넘을 때 필요해지는 다른 셈법에 대한 이야기다.",
+   "blocks": [
+    {
+     "type": "image",
+     "src": "mongyu.jpg",
+     "cap": ""
+    },
+    {
+     "type": "film",
+     "src": "mongyu/mongyu-film.mp4",
+     "poster": "mongyu/mongyu-film.jpg",
+     "cap": ""
+    }
+   ],
    "credits": [
     {
      "role": "",
@@ -343,48 +274,6 @@ window.SITE = {
    "period": "2026.04–06",
    "intro": "",
    "cover": "book.jpg",
-   "images": [
-    {
-     "src": "book/book-01.jpg",
-     "cap": ""
-    },
-    {
-     "src": "book/book-02.jpg",
-     "cap": ""
-    },
-    {
-     "src": "book/book-03.jpg",
-     "cap": ""
-    },
-    {
-     "src": "book/book-04.jpg",
-     "cap": ""
-    },
-    {
-     "src": "book/book-05.jpg",
-     "cap": ""
-    },
-    {
-     "src": "book/book-06.jpg",
-     "cap": ""
-    },
-    {
-     "src": "book/book-07.jpg",
-     "cap": ""
-    },
-    {
-     "src": "book/book-08.jpg",
-     "cap": ""
-    },
-    {
-     "src": "book/book-09.jpg",
-     "cap": ""
-    },
-    {
-     "src": "book/book-10.jpg",
-     "cap": ""
-    }
-   ],
    "links": [
     {
      "label": "",
@@ -392,6 +281,182 @@ window.SITE = {
     }
    ],
    "desc": "고3 한 해 동안 쓴 소설과 토막글 28편을 B6, 약 120쪽의 책으로 엮었다. 흐릿하지만 그럼에도 주목했으면 하는 그 시기의 흔적을 남겨두는 작업이다.",
+   "blocks": [
+    {
+     "type": "shuffle",
+     "dir": "book/final",
+     "prefix": "f-",
+     "n": 28,
+     "cols": 4,
+     "rows": 4,
+     "ms": 700,
+     "ratio": "363 / 516",
+     "cap": ""
+    },
+    {
+     "type": "book",
+     "dir": "book/pages",
+     "n": 180,
+     "pad": 3,
+     "ratio": 0.6755,
+     "max": 900,
+     "label": "",
+     "toc": [
+      {
+       "t": "들어가는 말",
+       "p": 4
+      },
+      {
+       "t": "1. 무엇을 적었는가보다, 어디에 적혔는가가 더 중요하다고",
+       "p": 6,
+       "items": [
+        {
+         "t": "고등어",
+         "p": 8
+        },
+        {
+         "t": "가래침",
+         "p": 9
+        },
+        {
+         "t": "맥도날드",
+         "p": 10
+        },
+        {
+         "t": "소변기에 휴지를 버리지 마시오! (짧은 픽션)",
+         "p": 13
+        }
+       ]
+      },
+      {
+       "t": "2. 노인과 같은 방식의 셈법을 따르지 않습니다.",
+       "p": 28,
+       "items": [
+        {
+         "t": "노인",
+         "p": 30
+        },
+        {
+         "t": "사고",
+         "p": 31
+        },
+        {
+         "t": "사진",
+         "p": 33
+        },
+        {
+         "t": "도회 (짧은 픽션)",
+         "p": 35
+        }
+       ]
+      },
+      {
+       "t": "3. 정반대가 꼭 먼 거리를 의미하는 건 아니니까.",
+       "p": 52,
+       "items": [
+        {
+         "t": "두 개의 고어물",
+         "p": 54
+        },
+        {
+         "t": "생일",
+         "p": 56
+        },
+        {
+         "t": "추호",
+         "p": 57
+        },
+        {
+         "t": "2층 장애인 전용 화장실",
+         "p": 58
+        },
+        {
+         "t": "토마토 파스타 (짧은 픽션)",
+         "p": 63
+        }
+       ]
+      },
+      {
+       "t": "4. 쓰면서도, 다시 엮으면서도 내 글이 오글거린다는 걸 알고 있었다.",
+       "p": 92,
+       "items": [
+        {
+         "t": "풍선",
+         "p": 94
+        },
+        {
+         "t": "생동",
+         "p": 95
+        },
+        {
+         "t": "애매한 위치에서",
+         "p": 96
+        },
+        {
+         "t": "특권",
+         "p": 97
+        },
+        {
+         "t": "풍선 (짧은 픽션)",
+         "p": 99
+        }
+       ]
+      },
+      {
+       "t": "5. 야한 분위기라는 게",
+       "p": 108,
+       "items": [
+        {
+         "t": "아주 뻔뻔한",
+         "p": 110
+        },
+        {
+         "t": "거리",
+         "p": 111
+        },
+        {
+         "t": "속임수",
+         "p": 112
+        },
+        {
+         "t": "당신은 불행한 사람입니다.",
+         "p": 113
+        },
+        {
+         "t": "비둘기의 (짧은 픽션)",
+         "p": 115
+        }
+       ]
+      },
+      {
+       "t": "6. 저는 상관없이 번창할 것입니다.",
+       "p": 134,
+       "items": [
+        {
+         "t": "합격자 발표",
+         "p": 136
+        },
+        {
+         "t": "원장",
+         "p": 139
+        },
+        {
+         "t": "소변기에 휴지를 버리지 마시오!",
+         "p": 141
+        },
+        {
+         "t": "구슬 아이스크림 (짧은 픽션)",
+         "p": 143
+        }
+       ]
+      },
+      {
+       "t": "매듭짓는 말",
+       "p": 176
+      }
+     ]
+    }
+   ],
    "credits": [
     {
      "role": "",
@@ -412,52 +477,6 @@ window.SITE = {
    "period": "2026.03–06",
    "intro": "",
    "cover": "mentor.jpg",
-   "images": [
-    {
-     "src": "mentor/mentor-01.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-02.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-03.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-04.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-05.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-06.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-07.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-08.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-09.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-10.jpg",
-     "cap": ""
-    },
-    {
-     "src": "mentor/mentor-11.jpg",
-     "cap": ""
-    }
-   ],
    "links": [
     {
      "label": "",
@@ -465,6 +484,61 @@ window.SITE = {
     }
    ],
    "desc": "초등학생 때의 일기와 지금의 내가 덧붙인 글을 짝지어 12장의 소책자로 만들었다. 어린 시절의 기록에서 현재 나의 원형을 탐색한 작업이었다.",
+   "blocks": [
+    {
+     "type": "frames",
+     "frames": [
+      {
+       "src": "mentor/first/first-1.jpg",
+       "ms": 500
+      },
+      {
+       "src": "mentor/first/first-2.jpg",
+       "ms": 500
+      },
+      {
+       "src": "mentor/first/first-3.jpg",
+       "ms": 500
+      },
+      {
+       "src": "mentor/first/first-4.jpg",
+       "ms": 500
+      },
+      {
+       "src": "mentor/first/first-5.jpg",
+       "ms": 500
+      },
+      {
+       "src": "mentor/first/first-6.jpg",
+       "ms": 2000
+      }
+     ],
+     "cap": ""
+    },
+    {
+     "type": "frames",
+     "frames": [
+      {
+       "src": "mentor/first/ver-1.jpg",
+       "ms": 700
+      },
+      {
+       "src": "mentor/first/ver-2.jpg",
+       "ms": 700
+      }
+     ],
+     "cap": ""
+    },
+    {
+     "type": "book",
+     "dir": "mentor/inside",
+     "n": 24,
+     "pad": 2,
+     "ratio": 0.7082,
+     "max": 1000,
+     "label": ""
+    }
+   ],
    "credits": [
     {
      "role": "",
@@ -485,84 +559,6 @@ window.SITE = {
    "period": "2026.04",
    "intro": "",
    "cover": "bada.jpg",
-   "images": [
-    {
-     "src": "bada/bada-01.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-02.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-03.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-04.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-05.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-06.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-07.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-08.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-09.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-10.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-11.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-12.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-13.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-14.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-15.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-16.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-17.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-18.jpg",
-     "cap": ""
-    },
-    {
-     "src": "bada/bada-19.jpg",
-     "cap": ""
-    }
-   ],
    "links": [
     {
      "label": "",
@@ -570,6 +566,26 @@ window.SITE = {
     }
    ],
    "desc": "자리돔 한 마리가 수족관 앞 아이에게 자기가 살던 바다 마을 이야기를 들려주는 그림책을 만들었다.",
+   "blocks": [
+    {
+     "type": "book",
+     "dir": "bada/ver1",
+     "n": 20,
+     "pad": 2,
+     "ratio": 1,
+     "max": 1100,
+     "label": "어른을 위한 것"
+    },
+    {
+     "type": "book",
+     "dir": "bada/ver2",
+     "n": 20,
+     "pad": 2,
+     "ratio": 1,
+     "max": 1100,
+     "label": "어린이를 위한 것"
+    }
+   ],
    "credits": [
     {
      "role": "",
