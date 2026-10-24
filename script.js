@@ -55,7 +55,7 @@ renderWorks();
    film   { src, poster }                 소리 있는 영상(누르면 재생)
    frames { frames: [{ src, ms }] }       이미지 여러 장이 정해진 간격으로 넘어가며 반복
    shuffle{ dir, prefix, n, cols, rows, ms, ratio }  격자 이미지가 계속 다른 이미지로 바뀜
-   pair   { left, right }                 왼쪽·오른쪽을 휠(또는 누르기)로 따로 넘겨 조합해 보기
+   flipgrid { dir, a, b, n, cols, rows }  격자에 a(같이) 그림을 깔고, 칸을 누르면 짝인 b(따로) 그림으로 바뀜
    book   { dir, n, pad, ratio, max, label, toc }    실제 책처럼 좌우로 넘겨 보기
    모든 경로는 assets/design/ 기준. "cap"을 적으면 아래에 한 줄 설명이 붙는다. */
 const linkLabel = (l) => l.label || (l.url.includes('instagram.com') ? '인스타그램' : '링크');
@@ -76,8 +76,8 @@ function blockHTML(bl, w, path, k) {
       return `<figure class="blk" data-blk="frames" data-k="${k}"><img src="${A(bl.frames[0].src)}" alt="${alt}">${cap}</figure>`;
     case 'shuffle':
       return `<figure class="blk blk-shuffle" data-blk="shuffle" data-k="${k}"><div class="shuffle" style="--cols:${bl.cols};--ratio:${bl.ratio}"></div>${cap}</figure>`;
-    case 'pair':
-      return `<figure class="blk blk-pair" data-blk="pair" data-k="${k}"><div class="pair"></div>${cap}</figure>`;
+    case 'flipgrid':
+      return `<figure class="blk blk-flipgrid" data-blk="flipgrid" data-k="${k}"><div class="flipgrid" style="--cols:${bl.cols};--ratio:${bl.ratio}"></div>${cap}</figure>`;
     case 'book':
       return `<div class="blk-book" data-blk="book" data-k="${k}">${bl.label ? `<button type="button" class="book-label">${esc(bl.label)}</button>` : ''}</div>`;
     default:
@@ -112,7 +112,7 @@ function renderWork(i) {
       <dl>${(w.credits || []).map((c, k) =>
         `<div>${ed(`${b}.credits.${k}.role`, c.role, 'dt')}${ed(`${b}.credits.${k}.name`, c.name, 'dd')}</div>`).join('')}</dl>
       <time>${esc(w.period)}</time>
-      <svg class="logo-mark credits-logo" aria-hidden="true"><use href="#logo-medium"/></svg>
+      <svg class="logo-mark credits-logo" aria-hidden="true"><use href="#logo-small"/></svg>
     </section>
     <nav class="post-nav" aria-label="다른 작업">
       <a class="u-line post-prev" href="${prev || '#design'}" ${prev ? '' : 'aria-disabled="true" tabindex="-1"'}>전</a>
@@ -126,7 +126,7 @@ function renderWork(i) {
     const bl = blocks[+node.dataset.k];
     if (bl.type === 'frames') startFrames(node, bl);
     if (bl.type === 'shuffle') startShuffle(node, bl, w);
-    if (bl.type === 'pair') startPair(node, bl, w);
+    if (bl.type === 'flipgrid') startFlipGrid(node, bl, w);
     if (bl.type === 'book') books.push(makeBook(node, bl, w));
   });
   // 제목을 누르면 이 페이지의 책들이 모두 첫 장으로
@@ -183,37 +183,25 @@ function startShuffle(node, bl, w) {
   workCleanups.push(() => clearInterval(t));
 }
 
-/* 왼쪽·오른쪽 칸을 따로 넘겨 보며 조합: 그 칸 위에서 휠을 굴리거나 누르면 다음 장 */
-function startPair(node, bl, w) {
-  const box = node.querySelector('.pair');
-  const sides = ['left', 'right'].map((side) => {
-    const c = bl[side];
-    const src = (j) => A(`${c.dir}/${c.prefix}${String(j).padStart(2, '0')}.${c.ext || 'jpg'}`);
-    for (let j = 1; j <= c.n; j++) { const im = new Image(); im.src = src(j); }
-    const col = document.createElement('div');
-    col.className = 'pair-col';
-    col.innerHTML = `
-      <p class="pair-label">${esc(c.label || '')}</p>
-      <button type="button" class="pair-img" aria-label="${esc(c.label || side)} 다음 그림"><img src="${src(1)}" alt="${esc(w.title)} ${esc(c.label || '')} 1"></button>
-      <p class="pair-count">1 / ${c.n}</p>`;
-    box.appendChild(col);
-    const img = col.querySelector('img'), count = col.querySelector('.pair-count');
-    let k = 1, acc = 0, last = 0;
-    const show = (d) => { k = ((k - 1 + d) % c.n + c.n) % c.n + 1; img.src = src(k); img.alt = `${w.title} ${c.label || ''} ${k}`; count.textContent = `${k} / ${c.n}`; };
-    const pad = col.querySelector('.pair-img');
-    pad.addEventListener('click', () => show(1));
-    pad.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      acc += e.deltaY;
-      const now = performance.now();
-      if (Math.abs(acc) >= 40 && now - last > 90) { show(acc > 0 ? 1 : -1); acc = 0; last = now; }
-    }, { passive: false });
-    pad.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { e.preventDefault(); show(e.key === 'ArrowDown' ? 1 : -1); }
-    });
-    return col;
+/* 같이 ↔ 따로: 격자에 '같이' 그림을 깔아 두고, 칸을 누르면 그 짝인 '따로' 그림으로 바뀐다(다시 누르면 돌아옴).
+   n쌍으로 cols×rows 칸을 채우므로 같은 그림이 여러 번 나오되, 바로 옆·위아래에는 겹치지 않게 놓는다 */
+function startFlipGrid(node, bl, w) {
+  const grid = node.querySelector('.flipgrid');
+  const src = (pre, j) => A(`${bl.dir}/${pre}${String(j).padStart(2, '0')}.${bl.ext || 'jpg'}`);
+  for (let j = 1; j <= bl.n; j++) [bl.a, bl.b].forEach((pre) => { const im = new Image(); im.src = src(pre, j); });
+  const cells = [];
+  for (let r = 0; r < bl.rows; r++) for (let c = 0; c < bl.cols; c++) {
+    cells.push((r * bl.cols + Math.floor(r / 2) + c) % bl.n + 1);
+  }
+  grid.innerHTML = cells.map((j) =>
+    `<button type="button" class="fg-cell" data-j="${j}" aria-pressed="false" aria-label="${esc(w.title)} ${j}번, 누르면 따로와 같이가 바뀜"><img src="${src(bl.a, j)}" alt=""></button>`).join('');
+  grid.addEventListener('click', (e) => {
+    const cell = e.target.closest('.fg-cell');
+    if (!cell) return;
+    const on = cell.getAttribute('aria-pressed') !== 'true';
+    cell.setAttribute('aria-pressed', String(on));
+    cell.querySelector('img').src = src(on ? bl.b : bl.a, +cell.dataset.j);
   });
-  return sides;
 }
 
 /* ---------- 책: 실제 책처럼 좌우로 넘겨 보기 ----------
@@ -227,16 +215,18 @@ function makeBook(host, bl, w) {
   const spreads = spreadsOf(bl.n);
   const src = (p) => A(`${bl.dir}/p-${String(p).padStart(bl.pad || 2, '0')}.jpg`);
   const name = `${w.title}${bl.label ? ` (${bl.label})` : ''}`;
-  let cur = 0, busy = false;
+  let cur = 0;
 
   const row = document.createElement('div');
   row.className = 'book-row' + (bl.toc ? ' has-toc' : '');
   row.innerHTML = `
     <div class="book-main">
+      <div class="bk-frame" style="--max:${bl.max || 1100}px">
       <div class="bk-stage" style="--ratio:${2 * bl.ratio}; --max:${bl.max || 1100}px" tabindex="0" aria-label="${esc(name)}. 좌우 화살표로 넘겨 보세요.">
         <div class="spread"><div class="half l"></div><div class="half r"></div></div>
         <button class="hit prev" type="button" aria-label="앞 장"></button>
         <button class="hit next" type="button" aria-label="다음 장"></button>
+      </div>
       </div>
       <nav class="book-nav" aria-label="쪽 이동">
         <button class="prev-t" type="button">전</button>
@@ -270,27 +260,8 @@ function makeBook(host, bl, w) {
   }
 
   function go(to) {
-    if (busy || to === cur || to < 0 || to >= spreads.length) return;
-    const fwd = to > cur, from = spreads[cur], dest = spreads[to];
-    // 표지·마지막 장으로 오갈 때(책이 가운데로 움직일 때)나 멀리 건너뛸 때는 넘김 없이 바로 바꾼다
-    const plain = reduceMotion.matches || Math.abs(to - cur) > 1
-      || (fwd ? from[1] === null || dest[0] === null : from[0] === null || dest[1] === null);
-    if (plain) { cur = to; paint(cur); return; }
-    busy = true;
-    const leaf = document.createElement('div');
-    leaf.className = 'leaf ' + (fwd ? 'fwd' : 'back');
-    leaf.innerHTML = fwd
-      ? `<div class="face f">${img(from[1])}</div><div class="face b">${img(dest[0])}</div>`
-      : `<div class="face f">${img(from[0])}</div><div class="face b">${img(dest[1])}</div>`;
-    if (fwd) R.innerHTML = img(dest[1]); else L.innerHTML = img(dest[0]);
-    spread.appendChild(leaf);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      leaf.classList.add('turning');
-      leaf.style.transform = `rotateY(${fwd ? -180 : 180}deg)`;
-    }));
-    const done = () => { if (!busy) return; cur = to; paint(cur); leaf.remove(); busy = false; };
-    leaf.addEventListener('transitionend', (e) => { if (e.target === leaf && e.propertyName === 'transform') done(); });
-    setTimeout(done, 1000);   // transitionend가 오지 않는 경우 대비
+    if (to === cur || to < 0 || to >= spreads.length) return;
+    cur = to; paint(cur);
   }
   const step = (d) => go(cur + d);
 
@@ -307,9 +278,10 @@ function makeBook(host, bl, w) {
     const dx = e.changedTouches[0].clientX - x0; x0 = null;
     if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
   });
-  const home = () => { busy = false; spread.querySelectorAll('.leaf').forEach((x) => x.remove()); cur = 0; paint(0); };
+  const home = () => go(0);
   const label = host.querySelector('.book-label');
-  if (label) { row.prepend(label); label.addEventListener('click', home); }
+  // 이름은 펼친 책의 왼쪽 쪽 왼끝에 맞춘다
+  if (label) { row.querySelector('.bk-frame').prepend(label); label.addEventListener('click', home); }
 
   // 목차: 책 높이만큼만 보이고, 넘치는 부분은 휠로 내려 본다
   if (bl.toc) {
@@ -439,7 +411,7 @@ songBtns.forEach((btn) => {
   sec.hidden = true;
   sec.innerHTML = `
     <div class="page">
-      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-medium"/></svg></a>
+      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-small"/></svg></a>
       <form class="setup" id="setup" autocomplete="off">
         <p>이 기기에서 편집할 수 있게 설정합니다. 열쇠는 이 브라우저 안에만 비밀번호로 잠겨 저장됩니다.</p>
         <label>GitHub 열쇠(token)<input type="password" name="token" required></label>

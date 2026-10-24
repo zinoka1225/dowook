@@ -138,25 +138,24 @@ window.SITE = {
    "blocks": [
     {
      "type": "image",
+     "src": "ttaro/thumb.jpg",
+     "cap": ""
+    },
+    {
+     "type": "image",
      "src": "ttaro/poster.jpg",
      "cap": ""
     },
     {
-     "type": "pair",
-     "left": {
-      "label": "따로",
-      "dir": "ttaro/apart",
-      "prefix": "a-",
-      "ext": "png",
-      "n": 12
-     },
-     "right": {
-      "label": "같이",
-      "dir": "ttaro/together",
-      "prefix": "t-",
-      "ext": "png",
-      "n": 12
-     },
+     "type": "flipgrid",
+     "dir": "ttaro/pairs",
+     "a": "together-",
+     "b": "apart-",
+     "ext": "png",
+     "n": 12,
+     "cols": 6,
+     "rows": 6,
+     "ratio": "529 / 545",
      "cap": ""
     }
    ],
