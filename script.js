@@ -184,14 +184,15 @@ function startShuffle(node, bl, w) {
 }
 
 /* 같이 ↔ 따로: 격자에 '같이' 그림을 깔아 두고, 칸을 누르면 그 짝인 '따로' 그림으로 바뀐다(다시 누르면 돌아옴).
-   n쌍으로 cols×rows 칸을 채우므로 같은 그림이 여러 번 나오되, 바로 옆·위아래에는 겹치지 않게 놓는다 */
+   칸 수(cols×rows)가 쌍 수보다 많으면 같은 그림이 반복되되, 바로 옆·위아래에는 겹치지 않게 놓는다 */
 function startFlipGrid(node, bl, w) {
   const grid = node.querySelector('.flipgrid');
   const src = (pre, j) => A(`${bl.dir}/${pre}${String(j).padStart(2, '0')}.${bl.ext || 'jpg'}`);
   for (let j = 1; j <= bl.n; j++) [bl.a, bl.b].forEach((pre) => { const im = new Image(); im.src = src(pre, j); });
   const cells = [];
   for (let r = 0; r < bl.rows; r++) for (let c = 0; c < bl.cols; c++) {
-    cells.push((r * bl.cols + Math.floor(r / 2) + c) % bl.n + 1);
+    const at = r * bl.cols + c;   // 칸 수가 쌍 수 이하면 1번부터 차례대로, 더 많으면 엇갈려 반복
+    cells.push(bl.cols * bl.rows <= bl.n ? at + 1 : (at + Math.floor(r / 2)) % bl.n + 1);
   }
   grid.innerHTML = cells.map((j) =>
     `<button type="button" class="fg-cell" data-j="${j}" aria-pressed="false" aria-label="${esc(w.title)} ${j}번, 누르면 따로와 같이가 바뀜"><img src="${src(bl.a, j)}" alt=""></button>`).join('');

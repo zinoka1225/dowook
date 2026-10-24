@@ -216,7 +216,7 @@ body.is-editing .work-images figcaption:empty::before { content: "이미지 설�
 .shuffle img { display: block; width: 100%; aspect-ratio: var(--ratio); object-fit: cover; background: #fff; }
 
 /* 따로 · 같이: '같이' 격자, 칸을 누르면 '따로' */
-.blk-flipgrid { width: min(100%, 1000px); }
+.blk-flipgrid { width: min(100%, 900px); }
 .flipgrid { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: clamp(4px, .8vw, 10px); width: 100%; }
 .fg-cell { display: block; width: 100%; background: #fff; }
 .fg-cell img { display: block; width: 100%; aspect-ratio: var(--ratio); object-fit: cover; transition: opacity .15s; }

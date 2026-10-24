@@ -153,8 +153,8 @@ window.SITE = {
      "b": "apart-",
      "ext": "png",
      "n": 12,
-     "cols": 6,
-     "rows": 6,
+     "cols": 3,
+     "rows": 4,
      "ratio": "529 / 545",
      "cap": ""
     }
