@@ -554,7 +554,7 @@ window.SITE = {
    ]
   },
   {
-   "title": "바다가",
+   "title": "바다가, 얼마만의 휴식인지",
    "period": "2026.04",
    "intro": "",
    "cover": "bada.jpg",
@@ -564,7 +564,7 @@ window.SITE = {
      "url": "https://www.instagram.com/p/Dae-pb0kdBj/"
     }
    ],
-   "desc": "자리돔 한 마리가 수족관 앞 아이에게 자기가 살던 바다 마을 이야기를 들려주는 그림책을 만들었다.",
+   "desc": "해양 오염을 주제로 한 그림책을 만들었다.",
    "blocks": [
     {
      "type": "book",
