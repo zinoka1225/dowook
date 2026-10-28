@@ -1,16 +1,13 @@
 /* =========================================================
    도욱 — script.js
-   1) 화면 전환(주소 끝 #이름)  2) 돌아가는 원  3) 이스터에그
+   1) 화면 전환(주소 끝 #이름)  2) 로고 커서와 따라보는 눈  3) 이스터에그
    4) content/data.js(window.SITE)를 읽어 각 페이지를 채운다
    5) 편집 모드 (맨 아래)
    ========================================================= */
 
 /* ===== 조절하기 쉬운 값 ===== */
-const PERIOD = 8000;     // 한 바퀴 도는 시간(ms). 작을수록 빠름
-const TOLERANCE = 13;    // 원 안에 들어왔다고 인정하는 각도(±도)
-const SECRET_CLICKS = 5; // 최근 업데이트를 몇 번 연속 눌러야 불안 페이지가 열리는지
+const SECRET_CLICKS = 5; // 첫 화면 얼굴을 몇 번 연속 눌러야 불안 페이지가 열리는지
 const SECRET_GAP = 600;  // 연속 클릭으로 인정하는 간격(ms)
-const ORBIT = { cy: 2410, rx: 1690, ry: 1500 }; // 궤도: 대지(8000×4500) 기준 중심 높이, 가로·세로 반지름
 
 const SITE = window.SITE;
 const $ = (sel) => document.querySelector(sel);
@@ -20,14 +17,6 @@ const brs = (s) => esc(s).replaceAll('\n', '<br>');          // 글 속 \n = 원
 // 편집할 수 있는 글 조각: data-edit에 SITE 안의 위치를 적어 둔다 (예: education.0.plan.1)
 const ed = (path, text, tag = 'span', cls = '') =>
   `<${tag}${cls ? ` class="${cls}"` : ''} data-edit="${path}">${brs(text)}</${tag}>`;
-
-/* ---------- 최근 업데이트 ---------- */
-function showUpdated() {
-  const t = $('#updated-date');
-  t.dateTime = SITE.updated;
-  t.textContent = dot(SITE.updated.slice(2));               // 26. 10. 11
-}
-showUpdated();
 
 /* ---------- 페이지 소개 문장 ---------- */
 document.querySelectorAll('[data-edit^="intro."]').forEach((el) => {
@@ -372,6 +361,9 @@ function renderLesson(i) {
   const a = $('#mail-link');
   a.href = 'mailto:' + m;
   a.textContent = m;
+  const b = $('#hm-mail');                                  // 나에 대해서
+  b.href = 'mailto:' + m;
+  b.textContent = m;
 }
 
 /* ---------- 노래: 제목을 누르면 재생, 다시 누르면 정지 ---------- */
@@ -427,7 +419,6 @@ songBtns.forEach((btn) => {
 
 /* ---------- 화면 전환 (주소 끝의 #이름) ---------- */
 const views = document.querySelectorAll('[data-view]');
-const logo = $('#core-logo');
 
 function route() {
   const hash = location.hash.slice(1) || 'home';
@@ -444,76 +435,113 @@ function route() {
   if (name === 'work') renderWork(+mw[1]); else stopWork();
   if (name === 'design') renderWorks();
   Editor.refresh();
-  logo.classList.remove('is-miss');      // 돌아왔을 때 흔들림이 다시 재생되지 않도록
   window.scrollTo(0, 0);
   stopAllSongs();
-  name === 'home' ? startOrbit() : stopOrbit();
+  homeOn = name === 'home' || name === 'about';
+  document.body.classList.toggle('hm-on', homeOn);
+  if (!homeOn) hideCursor();
+  name === 'home' ? startEyes() : stopEyes();
 }
 window.addEventListener('hashchange', route);
 
-/* ---------- 돌아가는 원 ---------- */
-const stage = $('#stage');
-const ring = $('#ring');
-const items = [...document.querySelectorAll('#orbit li')];
+/* ---------- 첫 화면: 로고 커서와 따라보는 눈 ----------
+   컴퓨터: 마우스 커서 자리에 로고가 따라다닌다.
+   휴대폰: 꾹 누르면 손가락 위쪽에 로고가 뜨고, 누른 채 끌면 따라오고, 놓으면 로고가 있던 자리를 누른다. */
+const LONG_PRESS = 450;  // 꾹 누르는 시간(ms)
+const LIFT = 56;         // 손가락에서 로고 중심까지 위로 띄우는 거리(px)
+const EYE = { rx: 55, ry: 31, rest: { x: 44, y: -11 } };  // 눈동자가 움직이는 폭(가로가 더 넓음)과 쉬는 자리
+
+const face = $('#hm-face');
+const cursor = $('#hm-cursor');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-let angle = 0, rafId = null, last = null, stepTimer = null;
+let homeOn = false;               // 첫 화면·나에 대해서가 열려 있는지
+let curX = null, curY = null;     // 로고 위치(화면 좌표). 없으면 null
 
-function offset(i) {                       // 맨 위(0도)에서 얼마나 떨어져 있는지
-  const d = ((angle + i * 90) % 360 + 360) % 360;
-  return Math.min(d, 360 - d);
+function moveCursor(x, y) {
+  curX = x; curY = y;
+  cursor.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+  cursor.classList.add('is-on');
+  const el = document.elementFromPoint(x, y);
+  cursor.classList.toggle('is-link', !!(el && el.closest('a, button')));
 }
-function place() {
-  const a = stage.clientHeight / 4500;
-  const cx = stage.clientWidth / 2, cy = ORBIT.cy * a;
-  let inside = false;
-  items.forEach((li, i) => {
-    const t = (angle + i * 90) * Math.PI / 180;
-    const x = cx + ORBIT.rx * a * Math.sin(t);
-    const y = cy - ORBIT.ry * a * Math.cos(t);
-    li.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-    if (offset(i) <= TOLERANCE) inside = true;
-  });
-  ring.classList.toggle('is-on', inside);
-}
-function tick(t) {
-  if (last !== null) angle = (angle + (t - last) / PERIOD * 360) % 360;
-  last = t;
-  place();
-  rafId = requestAnimationFrame(tick);
-}
-function startOrbit() {
-  stopOrbit();
-  if (reduce.matches) {                    // 움직임 줄이기 설정: 90도씩 끊어서 넘어감
-    angle = Math.round(angle / 90) * 90;
-    place();
-    stepTimer = setInterval(() => { angle = (angle + 90) % 360; place(); }, PERIOD / 4);
-  } else {
-    last = null;
-    rafId = requestAnimationFrame(tick);
-  }
-}
-function stopOrbit() {
-  cancelAnimationFrame(rafId); rafId = null;
-  clearInterval(stepTimer); stepTimer = null;
-}
-window.addEventListener('resize', place);
+function hideCursor() { curX = curY = null; cursor.classList.remove('is-on', 'is-link'); }
 
-logo.addEventListener('click', () => {
-  if (Editor.swallowClick()) return;        // 꾹 누른 직후의 클릭은 무시
-  const hit = items.findIndex((_, i) => offset(i) <= TOLERANCE);
-  if (hit >= 0) {
-    location.hash = items[hit].dataset.target;
-  } else {                                  // 타이밍을 놓치면 로고가 흔들린다
-    logo.classList.remove('is-miss');
-    void logo.offsetWidth;
-    logo.classList.add('is-miss');
-  }
+// 마우스
+window.addEventListener('pointermove', (e) => {
+  if (e.pointerType === 'touch' || !homeOn) return;
+  moveCursor(e.clientX, e.clientY);
 });
-logo.addEventListener('animationend', () => logo.classList.remove('is-miss'));
+document.documentElement.addEventListener('mouseleave', hideCursor);
+window.addEventListener('blur', hideCursor);
 
-/* ---------- 이스터에그: 최근 업데이트 연속 클릭 ---------- */
+// 휴대폰
+let pressTimer = null, pressing = false, sx = 0, sy = 0;
+document.addEventListener('touchstart', (e) => {
+  if (!homeOn || e.touches.length !== 1 || document.body.classList.contains('is-editing')) return;
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+  clearTimeout(pressTimer);
+  pressTimer = setTimeout(() => {
+    pressTimer = null;
+    pressing = true;
+    if (navigator.vibrate) navigator.vibrate(8);
+    moveCursor(sx, sy - LIFT);
+  }, LONG_PRESS);
+}, { passive: true });
+document.addEventListener('touchmove', (e) => {
+  const t = e.touches[0];
+  if (pressing) { e.preventDefault(); moveCursor(t.clientX, t.clientY - LIFT); return; }
+  if (pressTimer && Math.hypot(t.clientX - sx, t.clientY - sy) > 10) { clearTimeout(pressTimer); pressTimer = null; }
+}, { passive: false });
+function endPress(e, fire) {
+  clearTimeout(pressTimer); pressTimer = null;
+  if (!pressing) return;
+  pressing = false;
+  if (e.cancelable) e.preventDefault();             // 손가락 밑이 아니라 로고 자리를 누르게
+  const el = fire && curX !== null ? document.elementFromPoint(curX, curY) : null;
+  const hit = el && el.closest('a, button');
+  setTimeout(hideCursor, 700);
+  if (hit) hit.click();
+}
+document.addEventListener('touchend', (e) => endPress(e, true), { passive: false });
+document.addEventListener('touchcancel', (e) => endPress(e, false));
+document.addEventListener('contextmenu', (e) => { if (homeOn && !document.body.classList.contains('is-editing')) e.preventDefault(); });
+
+// 눈: 얼굴 svg 좌표에서 각 눈의 중심을 기준으로 로고 쪽을 본다
+const eyes = [
+  { el: $('#hm-eye-l'), cx: 120, cy: 85, x: EYE.rest.x, y: EYE.rest.y },
+  { el: $('#hm-eye-r'), cx: 445, cy: 85, x: EYE.rest.x, y: EYE.rest.y },
+];
+let eyeRaf = null;
+function look() {
+  let p = null;
+  if (curX !== null) {
+    const m = face.getScreenCTM();
+    if (m) p = new DOMPoint(curX, curY).matrixTransform(m.inverse());
+  }
+  const k = reduce.matches ? 1 : 0.2;
+  for (const e of eyes) {
+    let tx = EYE.rest.x, ty = EYE.rest.y;
+    if (p) {
+      const dx = p.x - e.cx, dy = p.y - e.cy;
+      const d = Math.hypot(dx, dy) || 1;
+      const f = Math.min(1, d / 160);           // 아주 가까우면 덜 움직인다
+      tx = dx / d * EYE.rx * f;
+      ty = dy / d * EYE.ry * f;
+    }
+    e.x += (tx - e.x) * k;
+    e.y += (ty - e.y) * k;
+    e.el.setAttribute('cx', (e.cx + e.x).toFixed(2));
+    e.el.setAttribute('cy', (e.cy + e.y).toFixed(2));
+  }
+  eyeRaf = requestAnimationFrame(look);
+}
+function startEyes() { if (!eyeRaf) eyeRaf = requestAnimationFrame(look); }
+function stopEyes() { cancelAnimationFrame(eyeRaf); eyeRaf = null; }
+
+/* ---------- 이스터에그: 얼굴을 빠르게 연속으로 누르면 불안 ---------- */
 let clicks = 0, lastClick = 0;
-$('#updated').addEventListener('click', () => {
+face.addEventListener('click', () => {
+  if (Editor.swallowClick()) return;        // 꾹 누른 직후의 클릭은 무시
   const now = Date.now();
   clicks = (now - lastClick < SECRET_GAP) ? clicks + 1 : 1;
   lastClick = now;
@@ -522,7 +550,7 @@ $('#updated').addEventListener('click', () => {
 
 /* =========================================================
    편집 모드
-   - 첫 화면 로고를 꾹(1.2초) 누르면 화면에는 아무 변화 없이 보이지 않는 입력을 받는다.
+   - 첫 화면 얼굴을 꾹(1.2초) 누르면 화면에는 아무 변화 없이 보이지 않는 입력을 받는다.
    - 비밀번호를 치고 Enter → 이 기기에 저장해 둔 GitHub 열쇠가 풀리면 편집 모드.
    - 열쇠는 사이트(저장소)에 없다. #editor-setup 에서 기기마다 한 번 넣으면
      이 브라우저 안에만 비밀번호로 잠겨(PBKDF2 + AES-GCM) 저장된다.
@@ -597,12 +625,16 @@ const Editor = (() => {
     if (tok) { token = tok; start(); }                // 틀리면 아무 일도 일어나지 않는다
   });
 
-  // 꾹 누르기 (첫 화면 로고)
-  const coreLogo = document.getElementById('core-logo');
-  coreLogo.addEventListener('pointerdown', () => {
-    held = false;
+  // 꾹 누르기 (첫 화면 얼굴). 누른 채로 움직이면 취소(휴대폰에서 로고를 끄는 동작과 겹치지 않게)
+  const coreLogo = document.getElementById('hm-face');
+  let hx = 0, hy = 0;
+  coreLogo.addEventListener('pointerdown', (e) => {
+    held = false; hx = e.clientX; hy = e.clientY;
     clearTimeout(holdTimer);
     holdTimer = setTimeout(() => { held = true; }, HOLD);
+  });
+  coreLogo.addEventListener('pointermove', (e) => {
+    if (Math.hypot(e.clientX - hx, e.clientY - hy) > 12) { clearTimeout(holdTimer); held = false; }
   });
   ['pointerleave', 'pointercancel'].forEach((t) => coreLogo.addEventListener(t, () => clearTimeout(holdTimer)));
   coreLogo.addEventListener('pointerup', () => {
@@ -723,7 +755,7 @@ const Editor = (() => {
       if (!res.ok) { setupMsg(`이 열쇠로는 저장소에 들어갈 수 없어요 (${res.status}).`); return; }
       if (!store.set(await lock(tok, pw))) { setupMsg('이 브라우저에는 저장할 수 없어요(개인 정보 보호 모드 등).'); return; }
       form.reset();
-      setupMsg('이 기기에 저장했어요. 첫 화면에서 로고를 꾹 누른 뒤 비밀번호를 치고 Enter.');
+      setupMsg('이 기기에 저장했어요. 첫 화면에서 얼굴을 꾹 누른 뒤 비밀번호를 치고 Enter.');
     } catch (err) { setupMsg(String(err.message || err)); }
   });
   document.getElementById('setup-forget').addEventListener('click', () => { store.del(); setupMsg('이 기기에서 지웠어요.'); });

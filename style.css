@@ -36,78 +36,113 @@ img { display: block; max-width: 100%; height: auto; }
 .logo-mark { display: block; width: 100%; height: auto; aspect-ratio: 3415 / 2519; }
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 
-/* ---------- 첫 화면 ---------- */
-.view--home, .view--anxiety {
+/* ---------- 불안 화면 단위 ---------- */
+.view--anxiety {
   --a: min(
     max(calc(100vw / 8000), 0.079px),
     calc((100vw - 32px) / 4600),
     calc((100vh - 32px) / 4500)
   );
 }
-.view--home {
-  min-height: 100%;
+
+/* ---------- 첫 화면 · 나에 대해서 ----------
+   한 화면짜리 대지를 화면 안에 맞춘다. 가로형 2000×1125(16:9), 세로형 996×1766.
+   좌표는 대지 px을 cqw(대지 가로의 1%)로 옮긴 값: 가로형은 px÷20, 세로형은 px÷9.96 */
+.view--home, .view--about {
+  height: 100vh;
+  height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 16px;
-  box-sizing: border-box;
-}
-.stage { position: relative; width: 100%; height: calc(4500 * var(--a)); }
-.ring {
-  position: absolute;
-  left: 50%; top: calc(910 * var(--a));
-  width: calc(1090 * var(--a));
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  border: max(1px, calc(7 * var(--a))) solid var(--fg);
-  border-radius: 50%;
-  pointer-events: none;
-  transition: box-shadow .12s;
-}
-.ring.is-on { box-shadow: inset 0 0 0 max(1px, calc(7 * var(--a))) var(--fg); }
-.hint {
-  position: absolute;
-  left: calc(50% + 672 * var(--a));
-  top: calc(340 * var(--a));
-  font-size: max(11px, calc(78 * var(--a)));
-  line-height: 1.4;
-}
-.orbit li {
-  position: absolute;
-  left: 0; top: 0;
-  text-align: center;
-  font-size: calc(150 * var(--a));
-  line-height: 1.2;
-  white-space: nowrap;
+  overflow: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
   user-select: none;
+}
+.hm-stage {
+  position: relative;
+  width: min(100vw, calc(100dvh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  container-type: inline-size;
+}
+.hm-abs { position: absolute; }
+.hm-v { writing-mode: vertical-lr; text-orientation: upright; }
+.hm-ko { font-size: 1.9cqw; letter-spacing: .28cqw; line-height: 1; }
+.hm-en { font-size: 1.6cqw; line-height: 1.625; }
+.hm-sp { display: inline-block; inline-size: .45em; }   /* 세로쓰기 띄어쓰기: 서체마다 공백 폭이 달라 고정 간격 */
+
+.hm-intro { left: 8.2cqw; top: 7cqw; line-height: 2.1; }
+.hm-nav { top: 7cqw; display: block; }
+.hm-nav .hm-en { position: absolute; top: 7.5cqw; left: 0; white-space: nowrap; }
+.hm-nav-design { left: 29.2cqw; }
+.hm-nav-edu { left: 42.75cqw; }
+.hm-nav-sing { left: 56.25cqw; }
+.hm-desc { left: 9.25cqw; top: 41.95cqw; white-space: nowrap; }
+.hm-more {
+  right: 3.9cqw; top: 31.75cqw;
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 3.7cqw;
+  text-align: right;
+}
+.hm-face { left: 50cqw; top: 23cqw; width: 28cqw; height: auto; overflow: visible; }
+.hm-face path, .hm-face circle { fill: none; stroke: var(--fg); stroke-width: 4; stroke-linecap: round; }
+
+.hm-about-title { left: 7.6cqw; top: 9.1cqw; }
+.hm-about-rows {
+  left: 7.6cqw; right: 5cqw; top: 24.1cqw;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 13.75cqw minmax(0, 1fr);
+  row-gap: 3.6cqw;
+}
+.hm-about-rows dt, .hm-about-rows dd { margin: 0; }
+.hm-mail { text-decoration: underline; text-decoration-thickness: .1cqw; text-underline-offset: .55cqw; -webkit-user-select: text; user-select: text; }
+.hm-back {
+  right: 5cqw; top: 42.75cqw;
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 1.9cqw;
+}
+
+/* 로고 커서 */
+.hm-cursor {
+  position: fixed; left: 0; top: 0; z-index: 100;
+  width: calc(min(100vw, 100dvh * 16 / 9) * .0425);
+  pointer-events: none;
+  opacity: 0;
   will-change: transform;
 }
-.orbit span { display: block; }
-.orbit li.is-closed { color: #b4b4b4; }   /* 잠시 닫아 둔 주제: 흐리게, 눌러도 들어가지 않음 */
-.core {
-  position: absolute;
-  left: 50%; top: calc(2270 * var(--a));
-  width: calc(1040 * var(--a));
-  translate: -50% -50%;
+.hm-cursor.is-on { opacity: 1; }
+.hm-cursor .logo-mark { transition: transform .18s ease; }
+.hm-cursor.is-link .logo-mark { transform: scale(1.18); }
+@media (hover: hover) and (pointer: fine) {
+  body.hm-on, body.hm-on a, body.hm-on button { cursor: none; }
 }
-.core .logo { display: block; width: 100%; }
-.core .logo.is-miss { animation: miss .32s; }
-@keyframes miss {
-  20% { transform: translateX(-6px); } 40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); } 80% { transform: translateX(3px); }
+
+/* 세로 화면: 세로형 대지(996×1766) */
+@media (max-aspect-ratio: 1/1) {
+  .hm-stage { width: min(100vw, calc(100dvh * 996 / 1766)); aspect-ratio: 996 / 1766; }
+  .hm-ko { font-size: 3.4cqw; letter-spacing: .3cqw; }
+  .hm-en { font-size: 2.83cqw; line-height: 1.63; }
+
+  .hm-intro { left: 8.6cqw; top: 8.8cqw; line-height: 2.03; }
+  .hm-nav { left: 10.3cqw; display: flex; flex-direction: column; align-items: flex-start; gap: 1.2cqw; }
+  .hm-nav .hm-en { position: static; }
+  .hm-nav-design { top: 93.9cqw; }
+  .hm-nav-edu { top: 123.5cqw; }
+  .hm-nav-sing { top: 149.8cqw; }
+  .hm-desc { left: 10.4cqw; top: 67.8cqw; }
+  .hm-face { left: 43.4cqw; top: 18.9cqw; width: 49.6cqw; }
+  .hm-more { right: 10.6cqw; top: 134.8cqw; gap: 7.2cqw; }
+
+  .hm-about-title { left: 10.3cqw; top: 8.8cqw; }
+  .hm-about-rows { left: 10.3cqw; right: 10.3cqw; top: 42cqw; grid-template-columns: minmax(0, 1fr); row-gap: 1.5cqw; }
+  .hm-about-rows dd { margin-bottom: 7cqw; }
+  .hm-back { right: 10.6cqw; top: 141.5cqw; gap: 7.2cqw; }
+
+  .hm-cursor { width: calc(min(100vw, 100dvh * 996 / 1766) * .12); }
 }
-.updated {
-  position: absolute;
-  left: 50%; top: calc(2790 * var(--a));
-  translate: -50% 0;
-  display: flex; align-items: center;
-  gap: calc(115 * var(--a));
-  white-space: nowrap;
-  user-select: none;
-  cursor: default;
+@media (prefers-reduced-motion: reduce) {
+  .hm-cursor .logo-mark { transition: none; }
 }
-.updated small { font-size: max(10px, calc(78 * var(--a))); line-height: 1.2; }
-.updated small span { display: block; }
-.updated time { font-size: calc(125 * var(--a)); line-height: 1; font-variant-numeric: tabular-nums; }
 
 /* ---------- 하위 페이지 공통 ----------
    --u : 가로 배치 단위 (대지 가로 8000 = 화면 가로)
@@ -447,22 +482,7 @@ body.is-editing .credits dd:empty::before { content: "이름"; color: var(--mute
 .anxiety-more .post-link { align-items: center; }
 
 /* ---------- 좁은 화면 ---------- */
-/* 휴대폰: 로고 중심을 화면 높이 44% 지점에 고정하고, 나머지 요소는 로고 기준 좌표 그대로 */
 @media (max-width: 760px) {
-  .view--home {
-    --logo-y: 44%;
-    display: block;
-    position: relative;
-    min-height: 100vh;
-    min-height: 100svh;
-    padding: 0;
-  }
-  .view--home .stage {
-    position: absolute;
-    left: 16px; right: 16px;
-    width: auto;
-    top: max(16px, calc(var(--logo-y) - 2270 * var(--a)));
-  }
   .two-col, .work, #classes .two-col { grid-template-columns: minmax(0, 1fr); row-gap: .6em; }
   .work-cover img { max-width: min(100%, 320px); max-height: 300px; }
   .page-intro br { display: none; }

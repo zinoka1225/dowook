@@ -31,26 +31,54 @@
 </svg>
 
 <main>
-  <!-- 첫 화면 -->
+  <!-- 첫 화면: 로고가 커서가 되고, 얼굴이 그 커서를 쳐다본다 -->
   <section class="view view--home" data-view="home" aria-label="첫 화면">
-    <div class="stage" id="stage">
-      <div class="ring" id="ring" aria-hidden="true"></div>
-      <p class="hint">원이 주제를 포함할 때<br>도욱을 누르세요.</p>
-      <ul class="orbit" id="orbit" aria-label="주제">
-        <li data-target="email"><span>전자우편</span><span>email</span></li>
-        <li data-target="design"><span>디자인</span><span>design</span></li>
-        <li data-target="education"><span>교육</span><span>education</span></li>
-        <li data-target="singing"><span>노래</span><span>singing</span></li>
-      </ul>
-      <div class="core">
-        <button class="logo" id="core-logo" type="button" aria-label="도욱. 원 안에 주제가 들어왔을 때 누르면 그 주제로 이동합니다.">
-          <svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg>
-        </button>
-      </div>
-      <p class="updated" id="updated">
-        <small><span>최근 업데이트</span><span>Last updated</span></small>
-        <time id="updated-date"></time>
-      </p>
+    <div class="hm-stage">
+      <h1 class="hm-abs hm-v hm-ko hm-intro">이곳은<span class="hm-sp"></span>작업을<span class="hm-sp"></span>기록하고<span class="hm-sp"></span>소개하는<br>공간입니다.</h1>
+
+      <a class="hm-abs hm-nav hm-nav-design" href="#design"><span class="hm-v hm-ko">디자인</span><span class="hm-en">design</span></a>
+      <a class="hm-abs hm-nav hm-nav-edu" href="#education"><span class="hm-v hm-ko">교육</span><span class="hm-en">educate</span></a>
+      <a class="hm-abs hm-nav hm-nav-sing" href="#singing"><span class="hm-v hm-ko">노래</span><span class="hm-en">sing</span></a>
+
+      <p class="hm-abs hm-en hm-desc">This is a space to document<br>and share what I make and do.</p>
+
+      <!-- 얼굴. 좌표는 가로형 대지에서 (1000, 460)을 원점으로 잡은 값 -->
+      <svg class="hm-abs hm-face" id="hm-face" viewBox="0 0 560 490" aria-hidden="true">
+        <path d="M20,72 Q118,-10 212,48"/>
+        <path d="M358,52 Q445,-2 528,42"/>
+        <circle id="hm-eye-l" cx="164" cy="74" r="14"/>
+        <circle id="hm-eye-r" cx="489" cy="74" r="14"/>
+        <path d="M308,118 C315,170 335,205 365,222 C395,238 392,275 357,288"/>
+        <path d="M295,282 C305,286 312,292 322,289"/>
+        <path d="M291,375 Q304,365 312,381"/>
+        <path d="M260,421 Q281,406 299,418 Q317,406 334,420"/>
+        <path d="M286,458 Q293,471 320,463"/>
+      </svg>
+
+      <a class="hm-abs hm-more" href="#about">
+        <span class="hm-v hm-ko">김도욱</span>
+        <span class="hm-en">More about<br>Dowook Kim</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 나에 대해서 -->
+  <section class="view view--about" data-view="about" aria-label="나에 대해서" hidden>
+    <div class="hm-stage">
+      <h1 class="hm-abs hm-v hm-ko hm-about-title">나에<span class="hm-sp"></span>대해서</h1>
+      <dl class="hm-abs hm-en hm-about-rows">
+        <dt>about me</dt>
+        <dd>
+          <p>저는 시각디자인을 전공하는 학생입니다. 쓰기와 말하기 그리고 그리기에 관심이 있습니다.</p>
+          <p>I am a visual communication design student. I am interested in writing, speaking, and drawing.</p>
+        </dd>
+        <dt>Contact</dt>
+        <dd><a class="hm-mail" id="hm-mail" href="#about">메일 주소</a></dd>
+      </dl>
+      <a class="hm-abs hm-back" href="#home">
+        <span class="hm-v hm-ko">뒤로</span>
+        <span class="hm-en">Back to Main</span>
+      </a>
     </div>
   </section>
 
@@ -117,7 +145,7 @@
     </div>
   </section>
 
-  <!-- 불안 (이스터에그: 최근 업데이트를 빠르게 5번 누르면 열린다) -->
+  <!-- 불안 (이스터에그: 첫 화면 얼굴을 빠르게 5번 누르면 열린다) -->
   <section class="view view--anxiety" data-view="anxiety" hidden>
     <div class="anxiety-hero">
       <div class="anxiety">
@@ -128,6 +156,9 @@
     </div>
   </section>
 </main>
+
+<!-- 로고 커서 (첫 화면·나에 대해서) -->
+<div class="hm-cursor" id="hm-cursor" aria-hidden="true"><svg class="logo-mark"><use href="#logo"/></svg></div>
 
 <script src="content/data.js"></script>
 <script src="script.js"></script>
