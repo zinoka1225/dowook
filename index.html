@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>도욱</title>
-<meta name="description" content="교육, 디자인, 글, 노래. 김도욱의 웹.">
+<meta name="description" content="디자인, 교육, 노래. 김도욱의 작업을 기록하고 소개하는 공간.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap">
+<link rel="preload" href="assets/fonts/Interop-Medium-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,117 +32,60 @@
 </svg>
 
 <main>
-  <!-- 첫 화면: 로고가 커서가 되고, 얼굴이 그 커서를 쳐다본다 -->
-  <section class="view view--home" data-view="home" aria-label="첫 화면">
-    <div class="hm-stage">
-      <h1 class="hm-abs hm-v hm-ko hm-intro">이곳은<span class="hm-sp"></span>작업을<span class="hm-sp"></span>기록하고<span class="hm-sp"></span>소개하는<br>공간입니다.</h1>
+  <!-- 첫 화면 · 디자인 · 교육 · 노래: 한 화면을 같이 쓰고 data-mode만 바뀐다 -->
+  <section class="view view--hero" data-view="hero" id="hero" data-mode="home" aria-label="첫 화면">
+    <div class="board">
+      <div class="screen">
+        <div class="frame">
+          <h1 class="v v40 at hero-ko" id="hero-ko"></h1>
+          <p class="h en t30 at hero-en" id="hero-en"></p>
 
-      <a class="hm-abs hm-nav hm-nav-design" href="#design"><span class="hm-v hm-ko">디자인</span><span class="hm-en">design</span></a>
-      <a class="hm-abs hm-nav hm-nav-edu" href="#education"><span class="hm-v hm-ko">교육</span><span class="hm-en">educate</span></a>
-      <a class="hm-abs hm-nav hm-nav-sing" href="#singing"><span class="hm-v hm-ko">노래</span><span class="hm-en">sing</span></a>
+          <a class="nav nav-design" href="#design"><span class="v v40">디자인</span><span class="en t30">design</span></a>
+          <a class="nav nav-education" href="#education"><span class="v v40">교육</span><span class="en t30">educate</span></a>
+          <a class="nav nav-singing" href="#singing"><span class="v v40">노래</span><span class="en t30">sing</span></a>
+          <a class="pin" id="pin" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg></a>
 
-      <p class="hm-abs hm-en hm-desc">This is a space to document<br>and share what I make and do.</p>
+          <!-- 얼굴: 대지 (960, 420)을 원점으로 둔 좌표. 귀는 노래를 듣는 동안만 보인다 -->
+          <svg class="face" id="hm-face" viewBox="0 0 560 490" aria-hidden="true">
+          <path d="M22.3,90.9C22.3,90.9 71.4,31.2 166.7,53.1C166.7,53.1 198.0,63.6 203.9,69.6"/>
+          <path d="M346.6,71.6C346.6,71.6 420.5,18.4 508.1,62.8"/>
+          <path d="M297.3,136.2C297.3,136.2 307.1,213.1 349.9,232.3C392.7,251.6 362.1,301.7 341.8,296.9"/>
+          <path d="M284.6,294.3C297.0,298.5 303.5,302.6 310.0,298.5"/>
+          <path d="M278.6,383.3C278.6,383.3 292.8,371.3 298.7,388.8"/>
+          <path d="M251.6,426.4C251.6,426.4 261.2,418.0 276.2,417.9C291.1,417.7 288.3,426.0 291.9,424.5C295.5,422.9 302.0,415.8 310.1,419.1C318.1,422.3 319.1,424.5 319.1,424.5"/>
+          <path d="M276.0,461.8C276.0,461.8 278.0,473.3 289.2,471.4C300.3,469.5 305.9,466.7 305.9,466.7"/>
+            <circle id="hm-eye-l" cx="163.3" cy="92.3" r="13"/>
+            <circle id="hm-eye-r" cx="471.9" cy="94.3" r="13"/>
+            <g class="ear" id="ear-head">
+          <path d="M-81.5,159.7C-81.5,159.7 -88.8,119.3 -110.5,114.5C-129.3,110.4 -159.7,113.2 -168.4,139.0C-178.8,169.5 -169.1,214.1 -147.4,215.6C-135.5,216.4 -137.7,225.9 -133.0,236.0C-128.2,246.0 -122.4,258.2 -99.5,250.7C-75.0,242.8 -86.1,226.1 -71.7,214.5"/>
+          <path d="M-154.6,167.0C-154.6,167.0 -147.3,138.2 -140.2,138.6C-131.5,139.2 -93.7,165.2 -103.3,175.3C-110.2,182.7 -123.2,200.0 -104.6,201.2C-98.7,201.6 -86.4,197.9 -85.1,208.0C-83.7,218.7 -94.4,226.8 -108.1,221.8C-121.7,216.9 -129.0,187.4 -122.8,171.6"/>
+            </g>
+          </svg>
 
-      <!-- 얼굴. 좌표는 가로형 대지에서 (1000, 460)을 원점으로 잡은 값 -->
-      <svg class="hm-abs hm-face" id="hm-face" viewBox="0 0 560 490" aria-hidden="true">
-        <path d="M20,72 Q118,-10 212,48"/>
-        <path d="M358,52 Q445,-2 528,42"/>
-        <circle id="hm-eye-l" cx="164" cy="74" r="14"/>
-        <circle id="hm-eye-r" cx="489" cy="74" r="14"/>
-        <path d="M308,118 C315,170 335,205 365,222 C395,238 392,275 357,288"/>
-        <path d="M295,282 C305,286 312,292 322,289"/>
-        <path d="M291,375 Q304,365 312,381"/>
-        <path d="M260,421 Q281,406 299,418 Q317,406 334,420"/>
-        <path d="M286,458 Q293,471 320,463"/>
-      </svg>
-
-      <a class="hm-abs hm-more" href="#about">
-        <span class="hm-v hm-ko">김도욱</span>
-        <span class="hm-en">More about<br>Dowook Kim</span>
-      </a>
+          <a class="more" href="#about">
+            <span class="v v40">김도욱</span>
+            <span class="en t30">More about<br>Dowook Kim</span>
+          </a>
+          <hr class="rule">
+        </div>
+      </div>
+      <div class="list" id="list"></div>
     </div>
   </section>
 
-  <!-- 나에 대해서 -->
+  <!-- 나에 대해서: 두 화면. 뒤로는 고정 -->
   <section class="view view--about" data-view="about" aria-label="나에 대해서" hidden>
-    <div class="hm-stage">
-      <h1 class="hm-abs hm-v hm-ko hm-about-title">나에<span class="hm-sp"></span>대해서</h1>
-      <dl class="hm-abs hm-en hm-about-rows">
-        <dt>about me</dt>
-        <dd>
-          <p>저는 시각디자인을 전공하는 학생입니다. 쓰기와 말하기 그리고 그리기에 관심이 있습니다.</p>
-          <p>I am a visual communication design student. I am interested in writing, speaking, and drawing.</p>
-        </dd>
-        <dt>Contact</dt>
-        <dd><a class="hm-mail" id="hm-mail" href="#about">메일 주소</a></dd>
-      </dl>
-      <a class="hm-abs hm-back" href="#home">
-        <span class="hm-v hm-ko">뒤로</span>
-        <span class="hm-en">Back to Main</span>
-      </a>
+    <div class="board">
+      <div class="screen"><div class="frame" id="about-1"></div></div>
+      <div class="screen"><div class="frame" id="about-2"></div></div>
     </div>
   </section>
 
-  <!-- 디자인 -->
-  <section class="view" data-view="design" hidden>
-    <div class="page">
-      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-small"/></svg></a>
-      <header class="page-head">
-        <h1 class="page-title"><span>디자인</span><span>design</span></h1>
-        <p class="page-intro" data-edit="intro.design"></p>
-      </header>
-      <div class="page-body works" id="works"></div>
-    </div>
-  </section>
-
-  <!-- 디자인: 작업 하나 (목록에서 누르면 열린다) -->
-  <section class="view" data-view="work" hidden>
-    <div class="page">
-      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-small"/></svg></a>
-      <article class="work-detail" id="work"></article>
-    </div>
-  </section>
-
-  <!-- 교육 -->
-  <section class="view" data-view="education" hidden>
-    <div class="page">
-      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-small"/></svg></a>
-      <header class="page-head">
-        <h1 class="page-title"><span>교육</span><span>education</span></h1>
-        <p class="page-intro" data-edit="intro.education"></p>
-      </header>
-      <div class="page-body lessons" id="classes"></div>
-    </div>
-  </section>
-
-  <!-- 교육: 수업 하나 (목록에서 누르면 열린다) -->
-  <section class="view" data-view="lesson" hidden>
-    <div class="page">
-      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-small"/></svg></a>
-      <article class="lesson" id="lesson"></article>
-    </div>
-  </section>
-
-  <!-- 노래 -->
-  <section class="view" data-view="singing" hidden>
-    <div class="page">
-      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-small"/></svg></a>
-      <header class="page-head">
-        <h1 class="page-title"><span>노래</span><span>singing</span></h1>
-        <p class="page-intro" data-edit="intro.singing"></p>
-      </header>
-      <ul class="page-body rows songs" id="songs"></ul>
-    </div>
-  </section>
-
-  <!-- 전자우편 -->
-  <section class="view" data-view="email" hidden>
-    <div class="page">
-      <a class="home-link" href="#home" aria-label="처음으로"><svg class="logo-mark" aria-hidden="true"><use href="#logo-small"/></svg></a>
-      <header class="page-head">
-        <h1 class="page-title"><span>전자우편</span><span>email</span></h1>
-      </header>
-      <p class="page-body mail"><a class="big u-line" id="mail-link" href="#email">메일 주소</a></p>
+  <!-- 작업 · 수업 하나: 첫 화면은 소개, 내려가면 이미지 -->
+  <section class="view view--detail" data-view="detail" aria-label="자세히" hidden>
+    <div class="board">
+      <div class="screen"><div class="frame" id="detail-1"></div></div>
+      <div class="more-images" id="detail-2"></div>
     </div>
   </section>
 
@@ -157,8 +101,27 @@
   </section>
 </main>
 
-<!-- 로고 커서 (첫 화면·나에 대해서) -->
-<div class="hm-cursor" id="hm-cursor" aria-hidden="true"><svg class="logo-mark"><use href="#logo"/></svg></div>
+<!-- 화면에 고정되는 글자: 세로 제목 · 영문 제목 · 뒤로 -->
+<div class="fix" id="fix" hidden>
+  <div class="board">
+    <div class="frame">
+      <p class="v v40 at fix-title" id="fix-title"></p>
+      <p class="en t28 at fix-en" id="fix-en"></p>
+      <a class="back" id="fix-back" href="#home"><span class="v v40">뒤로</span><span class="en t30">Back to Main</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- 줄 귀(노래 목록에서 재생 중인 줄에 뜬다) -->
+<template id="ear-row-tpl">
+  <svg class="ear-row" viewBox="0 0 125.7 180.1" aria-hidden="true">
+          <path d="M9.3,64.6C9.3,64.6 14.9,16.0 39.9,8.5C61.5,2.0 97.2,2.8 109.4,32.7C123.7,68.0 115.8,121.8 90.5,125.4C76.7,127.3 79.9,138.5 75.2,150.8C70.4,163.1 64.5,178.1 37.2,171.1C8.0,163.7 19.7,143.0 2.0,130.4"/>
+          <path d="M95.2,67.1C95.2,67.1 84.6,33.5 76.4,34.7C66.3,36.1 24.1,70.0 35.9,81.2C44.7,89.4 61.0,108.9 39.5,111.9C32.6,112.9 18.0,109.5 17.2,121.6C16.3,134.4 29.5,143.2 45.1,136.1C60.6,129.1 66.9,93.5 58.5,75.2"/>
+  </svg>
+</template>
+
+<!-- 로고 커서 (첫 화면) -->
+<div class="cursor" id="hm-cursor" aria-hidden="true"><svg class="logo-mark"><use href="#logo"/></svg></div>
 
 <script src="content/data.js"></script>
 <script src="script.js"></script>

@@ -24,7 +24,7 @@ window.SITE = {
      "url": "https://www.instagram.com/reel/DeriaACtvVF/"
     }
    ],
-   "desc": "책자를 조판할 때 모양을 보기 위해 임의로 넣어두는 텍스트를 더미 텍스트(dummy text)라고 한다. 내용이 아닌 형식을 위해 만들어진 글이지만 때로는 형식 그 자체가 갖는 함의가 있다. 창 크기를 직접 바꿔볼 수 있다.",
+   "desc": "책자를 조판할 때 모양을 보기 위해 임의로 넣어두는 텍스트를 더미 텍스트(dummy text)라고 한다.\n내용이 아닌 형식을 위해 만들어진 글이지만 때로는 형식 그 자체가 갖는 함의가 있다.\n창 크기를 직접 바꿔볼 수 있는 [인터렉션 웹]이다.",
    "blocks": [
     {
      "type": "loop",
@@ -60,7 +60,10 @@ window.SITE = {
      "role": "",
      "name": ""
     }
-   ]
+   ],
+   "ko": "(때로는)\n형태가 내용을 만든다.",
+   "en": "(Sometimes) Form maces content",
+   "descEn": "Text inserted arbitrarily to check the layout when typesetting a booklet is called ‘dummy text.’\nAlthough it is written for form rather than content, sometimes the form itself carries its own implications.\nIt is an [interactive website] where you can resize the window yourself."
   },
   {
    "title": "도욱",
@@ -73,7 +76,7 @@ window.SITE = {
      "url": "https://www.instagram.com/p/DeR5O2imt_Y/"
     }
    ],
-   "desc": "인스타그램과 웹에 사용할 로고를 디자인했다. 하나의 조형적 기준으로 수렴하는 디자인들이 판치는 시대에 대한 거부의 의사 표현이다.",
+   "desc": "인스타그램과 웹에 사용할 로고를 디자인했다.\n하나의 조형적 기준으로 수렴하는 디자인들이 판치는 시대에 대한 거부의 의사 표현이다.",
    "blocks": [
     {
      "type": "frames",
@@ -121,7 +124,10 @@ window.SITE = {
      "role": "",
      "name": ""
     }
-   ]
+   ],
+   "ko": "도욱\n(새로운 로고)",
+   "en": "Dowook (New logo)",
+   "descEn": "I designed a logo to use on Instagram and on the web.\nIt is a refusal of an era crowded with designs that converge on a single formal standard."
   },
   {
    "title": "따로 또 같이",
@@ -134,7 +140,7 @@ window.SITE = {
      "url": "https://www.instagram.com/p/DdTwOuNmuwB/"
     }
    ],
-   "desc": "원 두 개를 반원 호 하나와 1/4 호 둘로 잇는 배치 12개와, 그것을 떼어놓은 배치 12개를 만들었다. ‘따로’ 이루어지는 일과 ‘같이’ 이루어지는 일을 ‘또’ 반복하고 있는 작업이다.",
+   "desc": "원 두 개를 반원 호 하나와 1/4 호 둘로 잇는 배치 12개와, 그것을 떼어놓은 배치 12개를 만들었다.\n‘따로’ 이루어지는 일과 ‘같이’ 이루어지는 일을 ‘또’ 반복하고 있는 작업이다.",
    "blocks": [
     {
      "type": "image",
@@ -172,7 +178,10 @@ window.SITE = {
      "role": "",
      "name": ""
     }
-   ]
+   ],
+   "ko": "따로 또 같이\n때로는 열두 달, 때로는 열두 명.",
+   "en": "Apart and together\nSometimes twelve months,\nSometimes twelve people",
+   "descEn": "I made twelve arrangements that join two circles with one semicircular arc and two quarter arcs, and twelve more that pull them apart.\nThe work repeats, ‘again,’ what happens ‘apart’ and what happens ‘together.’"
   },
   {
    "title": "유토프",
@@ -189,7 +198,7 @@ window.SITE = {
      "url": "https://www.instagram.com/reel/Daq4Xf4OD8J/"
     }
    ],
-   "desc": "식욕이 죄악인 디스토피아를 레터링과 짧은 영상으로 만들었다. 유토피아에서 단어를 완결시키는 어미 -⁠ia를 떼어내 인간의 기본 욕구가 잘려 나간 세계를 이름에 담았다.",
+   "desc": "식욕이 죄악인 디스토피아를 레터링과 짧은 영상으로 만들었다.\n유토피아에서 단어를 완결시키는 어미 -⁠ia를 떼어내 인간의 기본 욕구가 잘려 나간 세계를 이름에 담았다.",
    "blocks": [
     {
      "type": "image",
@@ -226,7 +235,10 @@ window.SITE = {
      "role": "",
      "name": ""
     }
-   ]
+   ],
+   "ko": "유토프",
+   "en": "Utop",
+   "descEn": "I made a dystopia where appetite is a sin, as lettering and a short film.\nBy cutting off -ia, the ending that completes the word utopia, the name holds a world where a basic human need has been cut away."
   },
   {
    "title": "몽유",
@@ -239,7 +251,7 @@ window.SITE = {
      "url": "https://www.instagram.com/reel/DZm8jd1u-vS/"
     }
    ],
-   "desc": "노인과 비둘기의 하루를 겹쳐 보여주는 영상을 만들었다. 노인과 나 사이의 시간의 간극이 어떤 임계를 넘을 때 필요해지는 다른 셈법에 대한 이야기다.",
+   "desc": "노인과 비둘기의 하루를 겹쳐 보여주는 영상을 만들었다.\n노인과 나 사이의 시간의 간극이 어떤 임계를 넘을 때 필요해지는 다른 셈법에 대한 이야기다.",
    "blocks": [
     {
      "type": "image",
@@ -266,7 +278,10 @@ window.SITE = {
      "role": "",
      "name": ""
     }
-   ]
+   ],
+   "ko": "몽유",
+   "en": "mongyu (Somnambulism)",
+   "descEn": "I made a film that overlays a day of an old man and a day of a pigeon.\nIt is about the different way of counting that becomes necessary when the gap in time between an old man and me crosses a certain threshold."
   },
   {
    "title": "책을 읽는 것보다 사는 걸 더 좋아하는 나를 위한",
@@ -279,7 +294,7 @@ window.SITE = {
      "url": "https://www.instagram.com/p/DZnMidZms11/"
     }
    ],
-   "desc": "고3 한 해 동안 쓴 소설과 토막글 28편을 B6, 약 120쪽의 책으로 엮었다. 흐릿하지만 그럼에도 주목했으면 하는 그 시기의 흔적을 남겨두는 작업이다.",
+   "desc": "고3 한 해 동안 쓴 소설과 토막글 28편을 B6, 약 120쪽의 책으로 엮었다.\n흐릿하지만 그럼에도 주목했으면 하는 그 시기의 흔적을 남겨두는 작업이다.",
    "blocks": [
     {
      "type": "shuffle",
@@ -469,7 +484,10 @@ window.SITE = {
      "role": "",
      "name": ""
     }
-   ]
+   ],
+   "ko": "책을 읽는 것보다\n사는 걸 더 좋아하는 나를 위한",
+   "en": "For me, who likes buying books\nmore than reading them",
+   "descEn": "I bound 28 stories and short pieces written during my last year of high school into a B6 book of about 120 pages.\nIt keeps the traces of a time that is blurry, but that I still want noticed."
   },
   {
    "title": "내가 쏘아올린 작지 않은 공",
@@ -482,7 +500,7 @@ window.SITE = {
      "url": "https://www.instagram.com/p/DZxfZB-GpgF/"
     }
    ],
-   "desc": "초등학생 때의 일기와 지금의 내가 덧붙인 글을 짝지어 12장의 소책자로 만들었다. 어린 시절의 기록에서 현재 나의 원형을 탐색한 작업이었다.",
+   "desc": "초등학생 때의 일기와 지금의 내가 덧붙인 글을 짝지어 12장의 소책자로 만들었다.\n어린 시절의 기록에서 현재 나의 원형을 탐색한 작업이었다.",
    "blocks": [
     {
      "type": "frames",
@@ -551,7 +569,10 @@ window.SITE = {
      "role": "",
      "name": ""
     }
-   ]
+   ],
+   "ko": "내가 쏘아올린\n작지 않은 공",
+   "en": "The Not-So-Small Ball\nI Launched",
+   "descEn": "I paired my elementary school diary entries with writing added by me now, and made them into a 12-page booklet.\nIt was a work that looked for the origins of who I am now in records from my childhood."
   },
   {
    "title": "바다가, 얼마만의 휴식인지",
@@ -598,7 +619,10 @@ window.SITE = {
      "role": "",
      "name": ""
     }
-   ]
+   ],
+   "ko": "바다가,\n얼마만의 휴식인지",
+   "en": "The Sea,\nHow Long Since It Rested",
+   "descEn": "I made a picture book about marine pollution."
   }
  ],
  "education": [
@@ -715,7 +739,11 @@ window.SITE = {
    ],
    "next": [
     "기획과 달리 숲에 숨은 친구들을 찾는 과정이 퀴즈에 가깝게 느껴졌을 수 있다. 너무 쉬운 내용으로 흥미를 잃지 않도록 난이도를 조정할 필요가 있다."
-   ]
+   ],
+   "ko": "어둠 속에 숨겨진 비밀\n나무 손전등 만들기",
+   "en": "Secrets Hidden in the Dark",
+   "introKo": "어두운 숲에 숨은 동물을 찾으며 보호색, 위장색과 의태의 개념을 자연스럽게 학습할 수 있도록 구성했다.\n'숲을 탐험할 거야.'라는 타이틀로 숲에 들어가 친구들을 찾는다는 서사와 미션을 부여했다.",
+   "introEn": "It is structured so that users can naturally learn the concepts of protective coloration, camouflage,\nand mimicry while finding animals hidden in a dark forest. With the title 'I Will Explore the Forest,'\nit assigns a narrative and mission of entering the forest to find friends."
   },
   {
    "date": "2026.09.30",
@@ -799,7 +827,11 @@ window.SITE = {
    "next": [
     "개념적 정의를 먼저 보여 주는 대신, 재미있는 현상이나 이야기로 꼭지를 여는 방식을 시도해볼 필요가 있다.",
     "개별 제작이 서로의 결과물을 공유하는 활동으로 이어지도록 마무리를 기획 단계에서부터 계획하고 시간 배분을 점검할 필요가 있다. 10.14 수업 기획에 반영했다."
-   ]
+   ],
+   "ko": "소원을 담은 반딧불이 랜턴\n나만의 부호 만들기",
+   "en": "Firefly Lanterns That Hold Wishes",
+   "introKo": "반딧불이가 빛을 내는 원리와 생존 전략을 배우고 나만의 부호와 반딧불이 랜턴을 만들 수 있도록 구성했다.\n'반딧불이는 왜 빛을 낼까?'라는 질문에서 출발해 천적에게도 스스로를 드러내는 까닭을 함께 찾아보았다.",
+   "introEn": "It is structured so that children learn how fireflies glow and how they survive,\nthen make their own signal and a firefly lantern. Starting from the question 'Why do fireflies glow?',\nwe looked together for the reason they show themselves even to predators."
   },
   {
    "date": "2026.09.02",
@@ -906,7 +938,11 @@ window.SITE = {
    ],
    "next": [
     "다음 수업(09.30)에서 저학년용과 고학년용 학습지를 앞뒷면으로 나눠 준비해 학습 연령 차이에 대응했다."
-   ]
+   ],
+   "ko": "나를 닮은 행성\n층상구조 키링 만들기",
+   "en": "A Planet That Resembles Me",
+   "introKo": "지구의 층상 구조를 배우고 그 구조를 본떠 나를 닮은 행성 키링을 만들 수 있도록 구성했다.\n길을 잃은 작은 별의 이야기로 개념 학습과 만들기를 하나의 흐름으로 엮었다.",
+   "introEn": "It is structured so that children learn the layered structure of the Earth\nand make a keyring of a planet that resembles themselves, modeled on that structure.\nThe story of a small lost star ties the concept and the making into one flow."
   }
  ],
  "songs": [
@@ -914,68 +950,135 @@ window.SITE = {
    "file": "goodspeed.mp3",
    "title": "Goodspeed!",
    "artist": "혁오",
-   "recorded": "2026.10.21"
+   "recorded": "2026.10.21",
+   "ko": "굿스피드",
+   "en": "Goodspeed!",
+   "artistEn": "HYUKOH"
   },
   {
    "file": "untitled.mp3",
    "title": "무제",
    "artist": "검정치마",
-   "recorded": "2026.10.05"
+   "recorded": "2026.10.05",
+   "ko": "무제",
+   "en": "Untitled",
+   "artistEn": "The Black Skirt"
   },
   {
    "file": "hyeya.mp3",
    "title": "혜야",
    "artist": "검정치마",
-   "recorded": "2026.09.20"
+   "recorded": "2026.09.20",
+   "ko": "혜야",
+   "en": "Hyeya",
+   "artistEn": "The Black Skirt"
   },
   {
    "file": "carpenters.mp3",
    "title": "Close to You",
-   "artist": "Carpenters",
-   "recorded": "2026.08.28"
+   "artist": "카펜터스",
+   "recorded": "2026.08.28",
+   "ko": "클로즈투유",
+   "en": "Close to You",
+   "artistEn": "Carpenters"
   },
   {
    "file": "i-like-watching-you-go.mp3",
    "title": "I Like Watching You Go",
    "artist": "검정치마",
-   "recorded": "2026.07.17"
+   "recorded": "2026.07.17",
+   "ko": "아이라이크워칭유고",
+   "en": "I Like Watching You Go",
+   "artistEn": "The Black Skirt"
   },
   {
    "file": "eotteon-nal.mp3",
    "title": "어떤 날",
    "artist": "검정치마",
-   "recorded": "2026.07.08"
+   "recorded": "2026.07.08",
+   "ko": "어떤 날",
+   "en": "One Day",
+   "artistEn": "The Black Skirt"
   },
   {
    "file": "love-shine.mp3",
    "title": "Love Shine",
    "artist": "검정치마",
-   "recorded": "2026.06.23"
+   "recorded": "2026.06.23",
+   "ko": "러브샤인",
+   "en": "Love Shine",
+   "artistEn": "The Black Skirt"
   },
   {
    "file": "two-days.mp3",
    "title": "Two Days",
    "artist": "검정치마",
-   "recorded": "2026.06.23"
+   "recorded": "2026.06.23",
+   "ko": "투데이즈",
+   "en": "Two Days",
+   "artistEn": "The Black Skirt"
   },
   {
    "file": "una-sabba.mp3",
    "title": "우나사빠 (나는 사랑에 빠졌어요)",
    "artist": "음성녹음",
-   "recorded": "2026.06.22"
+   "recorded": "2026.06.22",
+   "ko": "우나사빠",
+   "en": "Una Sabba\n(I Fell in Love)",
+   "artistEn": "Voice memo"
   },
   {
    "file": "obun-popsong.mp3",
    "title": "오분팝송",
    "artist": "검정치마",
-   "recorded": "2026.06.06"
+   "recorded": "2026.06.06",
+   "ko": "오분팝송",
+   "en": "Five-Minute Pop Song",
+   "artistEn": "The Black Skirt"
   },
   {
    "file": "reality.mp3",
    "title": "Reality",
-   "artist": "Richard Sanderson",
+   "artist": "리처드 샌더슨",
    "recorded": "2024.11.13",
-   "with": "검정팬티"
+   "with": "검정팬티",
+   "ko": "리얼리티",
+   "en": "Reality",
+   "artistEn": "Richard Sanderson"
   }
- ]
+ ],
+ "heads": {
+  "home": {
+   "ko": "이곳은 작업을 기록하고 소개하는\n공간입니다.",
+   "en": "This is a space to document\nand share what I make and do."
+  },
+  "design": {
+   "ko": "하고싶은 말을 꾸밈없이 하는가.",
+   "en": "Do I say what I want to say,\nplainly?"
+  },
+  "education": {
+   "ko": "무엇을 배우고, 무엇을 가르치는\n사람이 되는가",
+   "en": "What do I learn, what do I teach,\nand who do I become?"
+  },
+  "singing": {
+   "ko": "음악을 즐길 수 있는 사람인가.",
+   "en": "Am I someone\nwho can enjoy music?"
+  }
+ },
+ "about": {
+  "ko": "저는 시각디자인을 전공하는 학생입니다. 쓰기와 말하기 그리고 그리기에 관심이 있습니다.",
+  "en": "I am a visual communication design student. I am interested in writing, speaking, and drawing.",
+  "history": [
+   {
+    "ko": "서울과학기술대학교\n시각디자인 전공",
+    "date": "Mar 26 –",
+    "en": "Visual Communication Design,\nSeoul National University of Science and Technology"
+   },
+   {
+    "ko": "병원학교 교육봉사\n연합동아리",
+    "date": "Sep 26 –",
+    "en": "K.I.D.S. United\nHospital School Educational Volunteer Club"
+   }
+  ]
+ }
 };
