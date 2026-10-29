@@ -13,8 +13,15 @@
 
 @font-face {
   font-family: "Interop";
+  src: url("assets/fonts/Interop-Regular-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-203A, U+20A9, U+2122;
+}
+@font-face {
+  font-family: "Interop";
   src: url("assets/fonts/Interop-Medium-latin.woff2") format("woff2");
-  font-weight: 100 900;
+  font-weight: 500;
   font-display: swap;
   unicode-range: U+0020-007E, U+00A0-00FF, U+2010-203A, U+20A9, U+2122;
 }
@@ -76,10 +83,10 @@ img { display: block; max-width: 100%; height: auto; }
 .vc { display: flex; flex-direction: column; align-items: center; width: calc(var(--pitch) * var(--p)); }
 .vc > i { display: block; font-style: normal; width: 1em; height: 1.028em; line-height: .888em; text-align: center; }
 .vc > .sp { height: .2545em; }
-.vc > .rt { line-height: 1.028em; transform: rotate(90deg); }
+.vc > .rt { height: var(--rt-h, .45em); line-height: var(--rt-h, .45em); transform: translateY(var(--rt-y, -.03em)) rotate(90deg); }   /* 괄호: 잉크 높이만큼만 칸을 써서 옆 줄과 윗선을 맞춘다 */
 /* 편집 중에는 쌓지 않고 글자 그대로(세로쓰기) 보여 준다 */
 .v.v-raw { display: block; writing-mode: vertical-lr; text-orientation: mixed; letter-spacing: .028em; line-height: calc(var(--pitch) * var(--p)); white-space: normal; }
-.en  { font-family: var(--en); --k: .3636; }        /* Interop: 기준선 = 줄 가운데 + 0.3636em */
+.en  { font-family: var(--en); font-weight: 500; --k: .3636; }        /* Interop: 기준선 = 줄 가운데 + 0.3636em */
 .ko  { font-family: var(--ko); --k: .436; }          /* Noto Sans KR: 줄 가운데 + 0.436em */
 .t30 { --fs: 30; --lh: 50; font-size: calc(30 * var(--p)); line-height: calc(50 * var(--p)); }
 .t28 { --fs: 28; --lh: 50; font-size: calc(28 * var(--p)); line-height: calc(50 * var(--p)); }
@@ -145,13 +152,13 @@ img { display: block; max-width: 100%; height: auto; }
   grid-template-columns: calc(136 * var(--p)) calc(194 * var(--p)) calc(642 * var(--p)) calc(490 * var(--p)) calc(180 * var(--p));
 }
 .row-ko, .song-ko { grid-column: 1; margin-left: calc(-7 * var(--p)); }
-.row-date { grid-column: 2; margin-top: calc(-10.54 * var(--p)); white-space: nowrap; }
+.row-date { grid-column: 2; font-weight: 400; margin-top: calc(-10.54 * var(--p)); white-space: nowrap; }
 .row-en, .song-en { grid-column: 3; margin-top: calc(-10.54 * var(--p)); }
 .row-media { grid-column: 4 / span 2; display: grid; grid-template-columns: calc(490 * var(--p)) calc(180 * var(--p)); }
 .row-thumb img { width: 100%; height: auto; background: #e4e4e4; }
 .row-go { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; }
 .row-go .v, .song-go .v { margin-right: calc(-7 * var(--p)); }
-.row-go .en { margin-bottom: calc(-14.1 * var(--p)); }
+.row-go .en { margin-bottom: calc(-14.1 * var(--p)); font-weight: 400; }   /* 목록에서는 영문 제목만 Medium으로 강조 */
 
 /* 노래: 가수 한글 이름은 제목과 같은 줄, 영문 이름은 세로 제목 끝에 맞춘다(제목이 길수록 간격이 벌어짐) */
 .song-head { grid-column: 1 / span 2; display: grid; grid-template-columns: calc(136 * var(--p)) calc(194 * var(--p)); }
@@ -202,7 +209,13 @@ img { display: block; max-width: 100%; height: auto; }
 .more-images figcaption:empty { display: none; }
 body.is-editing .more-images figcaption:empty { display: block; min-width: 8em; }
 body.is-editing .more-images figcaption:empty::before { content: "이미지 설명"; }
-.more-images .bk-frame { max-width: none; }
+/* 책: 펼친 면 전체가 고정 글자(영문 제목·뒤로)에 닿지 않는 높이(150~760)에 들어오게. 내려가다 책에 닿으면 그 자리에 멈춘다 */
+.view--detail .screen { scroll-snap-align: start; }
+html.snap-soft { scroll-snap-type: y proximity; }
+.more-images .blk-book { --book-h: 610; scroll-snap-align: start; scroll-margin-top: calc(var(--gap-y) + 150 * var(--p)); }
+.more-images .bk-frame { margin-inline: 0; width: calc(var(--book-h) * var(--p) * var(--ratio)); max-width: 100%; }
+.more-images .book-row.has-toc { grid-template-columns: max-content minmax(0, 1fr); column-gap: calc(80 * var(--p)); }
+.more-images .book-row.has-toc .toc { max-width: calc(560 * var(--p)); }
 
 /* 화면에 고정되는 글자: 위로 지나가는 이미지 위에서도 읽히도록 반전 */
 .fix { position: fixed; inset: 0; z-index: 20; display: grid; align-content: center; pointer-events: none; color: #fff; mix-blend-mode: difference; }
@@ -262,6 +275,9 @@ body.is-editing .more-images figcaption:empty::before { content: "이미지 설�
   .hist { left: calc(110 * var(--p)); right: calc(110 * var(--p)); top: calc(110 * var(--p)); }
 
   .d-text { left: calc(246 * var(--p)); right: calc(110 * var(--p)); top: calc((110 + 24.64 - 36.2) * var(--p)); }
+  .more-images .blk-book { --book-h: 1400; scroll-margin-top: calc(var(--gap-y) + 110 * var(--p)); }
+  .more-images .book-row.has-toc { grid-template-columns: minmax(0, 1fr); }
+  .more-images .book-row.has-toc .toc { max-width: none; }
   .more-images { grid-template-columns: minmax(0, 1fr); padding: calc(var(--gap-y) + 110 * var(--p)) calc(110 * var(--p)) calc(400 * var(--p)) calc(246 * var(--p)); }
   .fix-title { --x: 110; --y: 110; }
   .fix-en { --x: 110; bottom: calc((var(--H) - 1741 - 14.82) * var(--p)); max-width: calc(620 * var(--p)); }

@@ -181,7 +181,9 @@ window.SITE = {
    ],
    "ko": "따로 또 같이\n때로는 열두 달, 때로는 열두 명.",
    "en": "Apart and together\nSometimes twelve months,\nSometimes twelve people",
-   "descEn": "I made twelve arrangements that join two circles with one semicircular arc and two quarter arcs, and twelve more that pull them apart.\nThe work repeats, ‘again,’ what happens ‘apart’ and what happens ‘together.’"
+   "descEn": "I made twelve arrangements that join two circles with one semicircular arc and two quarter arcs, and twelve more that pull them apart.\nThe work repeats, ‘again,’ what happens ‘apart’ and what happens ‘together.’",
+   "koDetail": "따로 또 같이",
+   "enDetail": "Apart and together"
   },
   {
    "title": "유토프",
@@ -1054,15 +1056,15 @@ window.SITE = {
   },
   "design": {
    "ko": "하고싶은 말을 꾸밈없이 하는가.",
-   "en": "Do I say what I want to say,\nplainly?"
+   "en": "Whether I say what I want to say,\nplainly."
   },
   "education": {
    "ko": "무엇을 배우고, 무엇을 가르치는\n사람이 되는가",
-   "en": "What do I learn, what do I teach,\nand who do I become?"
+   "en": "Who I become\nby what I learn and what I teach"
   },
   "singing": {
    "ko": "음악을 즐길 수 있는 사람인가.",
-   "en": "Am I someone\nwho can enjoy music?"
+   "en": "Whether I am someone\nwho can enjoy music."
   }
  },
  "about": {

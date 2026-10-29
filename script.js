@@ -325,7 +325,7 @@ function blockHTML(bl, w, path, k) {
     case 'flipgrid':
       return `<figure class="blk blk-flipgrid${wide}" data-blk="flipgrid" data-k="${k}"><div class="flipgrid" style="--cols:${bl.cols};--ratio:${bl.ratio}"></div>${cap}</figure>`;
     case 'book':
-      return `<div class="blk-book${wide}" data-blk="book" data-k="${k}">${bl.label ? `<button type="button" class="book-label">${esc(bl.label)}</button>` : ''}</div>`;
+      return `<div class="blk-book${wide}" data-blk="book" data-k="${k}"></div>`;
     default:
       return `<figure class="blk"><img src="${A(bl.src)}" alt="${alt}" loading="lazy">${cap}</figure>`;
   }
@@ -344,7 +344,9 @@ function renderWork(i) {
   if (!w) { location.replace('#design'); return; }
   const b = `design.${i}`;
   const url = (w.links.find((l) => l.url && !l.url.includes('instagram.com')) || {}).url || '';
-  setFixed((w.ko || w.title).replace(/\n/g, ' '), `${b}.ko`, w.en, `${b}.en`, '#design');
+  const tk = w.koDetail ? 'koDetail' : 'ko';   // 상세 페이지 세로 제목을 목록과 다르게 줄이고 싶으면 koDetail
+  const te = w.enDetail ? 'enDetail' : 'en';
+  setFixed((w[tk] || w.title).replace(/\n/g, ' '), `${b}.${tk}`, w[te], `${b}.${te}`, '#design');
   $('#detail-1').innerHTML = `
     <div class="d-text">
       ${rich(`${b}.desc`, w.desc, url, 'p', 'ko t28 long')}
@@ -455,25 +457,19 @@ function makeBook(host, bl, w) {
   row.className = 'book-row' + (bl.toc ? ' has-toc' : '');
   row.innerHTML = `
     <div class="book-main">
-      <div class="bk-frame" style="--max:${bl.max || 1100}px">
+      <div class="bk-frame" style="--max:${bl.max || 1100}px; --ratio:${2 * bl.ratio}">
       <div class="bk-stage" style="--ratio:${2 * bl.ratio}; --max:${bl.max || 1100}px" tabindex="0" aria-label="${esc(name)}. 좌우 화살표로 넘겨 보세요.">
         <div class="spread"><div class="half l"></div><div class="half r"></div></div>
         <button class="hit prev" type="button" aria-label="앞 장"></button>
         <button class="hit next" type="button" aria-label="다음 장"></button>
       </div>
       </div>
-      <nav class="book-nav" aria-label="쪽 이동">
-        <button class="prev-t" type="button">전</button>
-        <span class="count" aria-live="polite"></span>
-        <button class="next-t" type="button">다음</button>
-      </nav>
     </div>`;
   host.appendChild(row);
   const stage = row.querySelector('.bk-stage');
   const spread = row.querySelector('.spread');
   const L = row.querySelector('.half.l'), R = row.querySelector('.half.r');
-  const count = row.querySelector('.count');
-  const btns = { prev: [row.querySelector('.hit.prev'), row.querySelector('.prev-t')], next: [row.querySelector('.hit.next'), row.querySelector('.next-t')] };
+  const btns = { prev: [row.querySelector('.hit.prev')], next: [row.querySelector('.hit.next')] };
   const img = (p) => p ? `<img src="${src(p)}" alt="${esc(name)} ${p}쪽" draggable="false">` : '';
   const warm = (k) => (spreads[k] || []).forEach((p) => { if (p) { const im = new Image(); im.src = src(p); } });
   let tocEl = null;
@@ -482,7 +478,6 @@ function makeBook(host, bl, w) {
     L.innerHTML = img(a); R.innerHTML = img(c);
     spread.classList.toggle('is-first', a === null);
     spread.classList.toggle('is-last', c === null && a !== null);
-    count.textContent = a && c ? `${a}–${c} / ${bl.n}` : `${a || c} / ${bl.n}`;
     btns.prev.forEach((x) => { x.disabled = k === 0; });
     btns.next.forEach((x) => { x.disabled = k === spreads.length - 1; });
     warm(k + 1); warm(k + 2); warm(k - 1);
@@ -506,8 +501,6 @@ function makeBook(host, bl, w) {
     if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
   });
   const home = () => go(0);
-  const label = host.querySelector('.book-label');
-  if (label) { row.querySelector('.bk-frame').prepend(label); label.addEventListener('click', home); }
   if (bl.toc) {
     const spreadOfPage = (p) => spreads.findIndex(([a, c]) => a === p || c === p);
     const li = (it) => `<li${it.items ? ' class="ch"' : ''}><button type="button" data-p="${it.p}"><span class="t">${esc(it.t)}</span><span class="pg">${it.p}</span></button>${it.items ? `<ol>${it.items.map(li).join('')}</ol>` : ''}</li>`;
@@ -563,11 +556,13 @@ document.querySelectorAll('[data-edit^="intro."]').forEach((el) => {
    화면 전환 (주소 끝의 #이름)
    ========================================================= */
 const HERO = ['home', 'design', 'education', 'singing'];
+const listY = {};
 const views = () => document.querySelectorAll('[data-view]');
 
 function route() {
   const hash = location.hash.slice(1) || 'home';
   const was = { view, mode, x: curX, y: curY };
+  if (was.view === 'hero' && was.mode !== 'home') listY[was.mode] = window.scrollY;   // 목록에서 보던 자리
   let m, next = null, nextMode = mode;
   if (HERO.includes(hash)) { next = 'hero'; nextMode = hash; }
   else if (hash === 'about' || hash === 'email') next = 'about';
@@ -584,7 +579,8 @@ function route() {
   if (view === 'hero') {
     hero.dataset.mode = mode;
     renderHead(mode);
-    renderList(mode);
+    const list = $('#list');
+    if (list.dataset.mode !== mode || list.dataset.dirty) { renderList(mode); list.dataset.mode = mode; delete list.dataset.dirty; }
   }
   if (view === 'about') renderAbout();
   if (view === 'detail') (hash.startsWith('work-') ? renderWork : renderLesson)(+m[1]);
@@ -594,11 +590,15 @@ function route() {
   fix.hidden = !(view === 'about' || view === 'detail');
   if (view === 'about') setFixed('', '', '', '', '#home');
   document.documentElement.classList.toggle('snap', view === 'about');
+  document.documentElement.classList.toggle('snap-soft', view === 'detail');
 
   document.body.classList.toggle('hm-on', homeOn());
   if (!homeOn()) hideCursor();
   view === 'hero' ? startEyes() : stopEyes();
-  window.scrollTo(0, 0);
+  // 작업·수업에서 목록으로 돌아오면 보던 자리로, 그 밖에는 맨 위로
+  const back = view === 'hero' && was.view === 'detail' && listY[mode] != null;
+  window.scrollTo(0, back ? listY[mode] : 0);
+  if (!back && view === 'hero') listY[mode] = 0;
   sizeCursor();
   Editor.refresh();
 
