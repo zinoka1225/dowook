@@ -354,7 +354,8 @@ function renderWork(i) {
     </div>`;
   const blocks = w.blocks && w.blocks.length ? w.blocks : [{ type: 'image', src: w.cover }];
   const el = $('#detail-2');
-  el.innerHTML = blocks.map((bl, k) => blockHTML(bl, w, `${b}.blocks.${k}`, k)).join('');
+  // 블록 하나가 한 화면. 세로 제목 윗선(150)에 맞추고, 고정 글자에 닿지 않는 칸(357~1669 × 150~862) 안에 들어간다
+  el.innerHTML = blocks.map((bl, k) => page(blockHTML(bl, w, `${b}.blocks.${k}`, k), bl.type === 'book' && bl.toc ? ' has-toc' : '')).join('');
   const books = [];
   el.querySelectorAll('[data-blk]').forEach((node) => {
     const bl = blocks[+node.dataset.k];
@@ -362,6 +363,7 @@ function renderWork(i) {
     if (bl.type === 'shuffle') startShuffle(node, bl, w);
     if (bl.type === 'flipgrid') startFlipGrid(node, bl, w);
     if (bl.type === 'book') books.push(makeBook(node, bl, w));
+    if (bl.type === 'shuffle' || bl.type === 'flipgrid') fitGrid(node, bl);
   });
   workCleanups.push(() => el.querySelectorAll('video').forEach((v) => v.pause()));
 }
@@ -377,11 +379,37 @@ function renderLesson(i) {
       ${ed(`${b}.introKo`, l.introKo || l.summary, 'p', 'ko t28 long')}
       ${l.introEn ? ed(`${b}.introEn`, l.introEn, 'p', 'd-en en t28 long') : ''}
     </div>`;
-  $('#detail-2').innerHTML = l.images.map((im, k) => `
+  // 수업 자료: 한 화면에 슬라이드 4장(2×2, 휴대폰은 3장). 학습지는 한 장씩 한 화면
+  const fig = (im, k) => `
     <figure class="slide">
       <img src="assets/edu/${esc(im.src)}" alt="${esc(l.title)} ${esc(im.alt || '')}" loading="lazy">
       ${im.credit ? `<figcaption>${ed(`${b}.images.${k}.credit`, im.credit)}</figcaption>` : ''}
-    </figure>`).join('');
+    </figure>`;
+  const per = portrait.matches ? 3 : 4;
+  const pages = [];
+  let cur = [];
+  l.images.forEach((im, k) => {
+    if (/-ws-/.test(im.src)) {
+      if (cur.length) { pages.push(`<div class="slides">${cur.join('')}</div>`); cur = []; }
+      pages.push(`<div class="sheet">${fig(im, k)}</div>`);
+      return;
+    }
+    cur.push(fig(im, k));
+    if (cur.length === per) { pages.push(`<div class="slides">${cur.join('')}</div>`); cur = []; }
+  });
+  if (cur.length) pages.push(`<div class="slides">${cur.join('')}</div>`);
+  $('#detail-2').innerHTML = pages.map((p) => page(p)).join('');
+}
+
+const page = (inner, cls = '') => `<section class="screen m-screen"><div class="frame"><div class="media${cls}">${inner}</div></div></section>`;
+
+/* 격자 블록(shuffle·flipgrid)은 칸 높이(712)에 맞춰 폭을 정한다 */
+function fitGrid(node, bl) {
+  const [a, c] = String(bl.ratio).split('/').map(Number);
+  const r = c ? a / c : +bl.ratio || 1;
+  const H = portrait.matches ? 1390 : 712, G = 10;
+  const w = ((H - (bl.rows - 1) * G) / bl.rows) * r * bl.cols + (bl.cols - 1) * G;
+  node.style.width = `min(100%, calc(${w.toFixed(1)} * var(--p)))`;
 }
 
 /* 이미지 여러 장을 정해진 간격(ms)으로 넘기며 반복 */
@@ -455,6 +483,7 @@ function makeBook(host, bl, w) {
   let cur = 0;
   const row = document.createElement('div');
   row.className = 'book-row' + (bl.toc ? ' has-toc' : '');
+  row.style.setProperty('--ratio', 2 * bl.ratio);
   row.innerHTML = `
     <div class="book-main">
       <div class="bk-frame" style="--max:${bl.max || 1100}px; --ratio:${2 * bl.ratio}">
@@ -515,7 +544,7 @@ function makeBook(host, bl, w) {
       go(spreadOfPage(+x.dataset.p));
       stage.focus({ preventScroll: true });
     });
-    const fit = () => { tocEl.style.height = matchMedia('(max-width: 860px)').matches ? '' : `${stage.offsetHeight}px`; };
+    const fit = () => { tocEl.style.height = portrait.matches ? '' : `${stage.offsetHeight / 2}px`; };   // 목차는 책과 같은 높이에서 시작해 절반 길이
     const ro = new ResizeObserver(fit); ro.observe(stage); fit();
     workCleanups.push(() => ro.disconnect());
   }
@@ -589,8 +618,7 @@ function route() {
   const fix = $('#fix');
   fix.hidden = !(view === 'about' || view === 'detail');
   if (view === 'about') setFixed('', '', '', '', '#home');
-  document.documentElement.classList.toggle('snap', view === 'about');
-  document.documentElement.classList.toggle('snap-soft', view === 'detail');
+  document.documentElement.classList.toggle('snap', view === 'about' || view === 'detail');   // 한 화면씩 넘어간다
 
   document.body.classList.toggle('hm-on', homeOn());
   if (!homeOn()) hideCursor();
@@ -606,6 +634,7 @@ function route() {
 }
 window.addEventListener('hashchange', route);
 window.addEventListener('resize', sizeCursor);
+portrait.addEventListener('change', () => { if (view === 'detail') route(); });   // 가로↔세로가 바뀌면 화면 나누기를 다시
 
 /* ---------- 이스터에그: 얼굴을 빠르게 연속으로 누르면 불안 ---------- */
 let clicks = 0, lastClick = 0;
